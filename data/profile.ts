@@ -6,7 +6,10 @@ export const profile = {
   githubUsername: "Yosuanry0812",
 
   // GANTI: alamat email kamu
-  email: "GANTI@email.com",
+  email: "yosuanry66@gmail.com",
+
+  // WhatsApp (nomor tanpa +62 — pakai format 628...)
+  whatsapp: "6281268247843",
 
   // GANTI: URL Formspree dari https://formspree.io (sudah terisi dari akunmu)
   formspreeEndpoint: "https://formspree.io/f/xeeyyvly",
@@ -22,8 +25,9 @@ export const profile = {
 
   socials: [
     { nama: "GitHub", url: "https://github.com/Yosuanry0812" },
-    { nama: "LinkedIn", url: "https://www.linkedin.com/in/GANTI" },
-    { nama: "Email", url: "mailto:GANTI@email.com" },
+    { nama: "LinkedIn", url: "https://www.linkedin.com/in/yosuanry-simbolon-5540222a7/" },
+    { nama: "WhatsApp", url: "https://wa.me/6281268247843" },
+    { nama: "Email", url: "mailto:yosuanry66@gmail.com" },
   ],
 };
 

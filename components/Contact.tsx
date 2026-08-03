@@ -8,19 +8,17 @@ import {
   Copy,
   Github,
   Linkedin,
-  Loader2,
   Mail,
-  Send,
+  MessageCircle,
 } from "lucide-react";
 import { profile } from "@/data/profile";
 import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
 
-type Status = "idle" | "loading" | "success" | "error";
-
 const socialIcons: Record<string, typeof Github> = {
   GitHub: Github,
   LinkedIn: Linkedin,
+  WhatsApp: MessageCircle,
   Email: Mail,
 };
 
@@ -28,27 +26,34 @@ const inputClass =
   "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm text-slate-900 shadow-inner outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-line dark:bg-bg dark:text-white";
 
 export default function Contact() {
-  const [status, setStatus] = useState<Status>("idle");
   const [copied, setCopied] = useState(false);
+  const [sent, setSent] = useState(false);
   const reduce = useReducedMotion();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    setStatus("loading");
+    const data = new FormData(form);
+    const nama = String(data.get("nama") ?? "");
+    const email = String(data.get("email") ?? "");
+    const pesan = String(data.get("pesan") ?? "");
 
-    try {
-      const res = await fetch(profile.formspreeEndpoint, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      });
-      if (!res.ok) throw new Error("Gagal mengirim");
-      setStatus("success");
-      form.reset();
-    } catch {
-      setStatus("error");
-    }
+    const text = [
+      `Halo, saya ${nama}.`,
+      email ? `Email: ${email}` : "",
+      "",
+      pesan,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    window.open(
+      `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setSent(true);
+    form.reset();
   };
 
   const copyEmail = async () => {
@@ -240,42 +245,22 @@ export default function Contact() {
 
             <button
               type="submit"
-              disabled={status === "loading"}
-              className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 px-6 py-3.5 font-medium text-slate-900 shadow-lg shadow-emerald-500/25 transition-all hover:shadow-emerald-500/40 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 px-6 py-3.5 font-medium text-slate-900 shadow-lg shadow-emerald-500/25 transition-all hover:shadow-emerald-500/40 hover:brightness-110"
             >
-              {status === "loading" ? (
-                <>
-                  <Loader2 size={18} className="animate-spin" /> Mengirim...
-                </>
-              ) : (
-                <>
-                  <Send size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  Kirim Pesan
-                </>
-              )}
+              <MessageCircle size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              Kirim via WhatsApp
             </button>
 
             <AnimatePresence>
-              {status === "success" ? (
+              {sent ? (
                 <motion.p
                   initial={{ opacity: 0, y: reduce ? 0 : 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   className="mt-4 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 font-mono text-sm text-emerald-400"
                 >
-                  <span className="text-emerald-400">✓</span> Pesan terkirim! Terima kasih, saya akan
-                  membalas secepatnya.
-                </motion.p>
-              ) : null}
-              {status === "error" ? (
-                <motion.p
-                  initial={{ opacity: 0, y: reduce ? 0 : 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="mt-4 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 font-mono text-sm text-red-400"
-                >
-                  <span className="text-red-400">✗</span> Gagal mengirim. Pastikan endpoint Formspree di
-                  data/profile.ts sudah diisi, lalu coba lagi.
+                  <span className="text-emerald-400">✓</span> WhatsApp terbuka — tinggal tekan kirim
+                  di sana.
                 </motion.p>
               ) : null}
             </AnimatePresence>
