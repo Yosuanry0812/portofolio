@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GitHubCalendar } from "react-github-calendar";
+import { ActivityCalendar, type Activity } from "react-activity-calendar";
 import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { FolderGit2, Star, UserPlus, Users } from "lucide-react";
 import { profile } from "@/data/profile";
@@ -20,6 +20,10 @@ interface UserData {
 
 interface RepoData {
   stargazers_count: number;
+}
+
+interface CalendarResponse {
+  contributions: Activity[];
 }
 
 type Status = "loading" | "error" | "done";
@@ -50,23 +54,30 @@ export default function GithubSection() {
   const [status, setStatus] = useState<Status>("loading");
   const [data, setData] = useState<UserData>({ public_repos: 0, followers: 0, following: 0 });
   const [stars, setStars] = useState(0);
+  const [contribs, setContribs] = useState<Activity[]>([]);
 
   const loadStats = async () => {
     setStatus("loading");
     try {
-      const [userRes, reposRes] = await Promise.all([
+      const to = new Date().toISOString().slice(0, 10);
+      const [userRes, reposRes, calRes] = await Promise.all([
         fetch(`https://api.github.com/users/${profile.githubUsername}`),
         fetch(`https://api.github.com/users/${profile.githubUsername}/repos?per_page=100`),
+        fetch(
+          `https://github-contributions-api.jogruber.de/v4/${profile.githubUsername}?from=2025-01-01&to=${to}`
+        ),
       ]);
-      if (!userRes.ok || !reposRes.ok) throw new Error("Gagal memuat");
+      if (!userRes.ok || !reposRes.ok || !calRes.ok) throw new Error("Gagal memuat");
       const user: UserData = await userRes.json();
       const repos: RepoData[] = await reposRes.json();
+      const cal: CalendarResponse = await calRes.json();
       setData({
         public_repos: user.public_repos,
         followers: user.followers,
         following: user.following,
       });
       setStars(repos.reduce((sum, r) => sum + r.stargazers_count, 0));
+      setContribs(cal.contributions.map((c) => ({ ...c, level: Number(c.level) })));
       setStatus("done");
     } catch {
       setStatus("error");
@@ -100,11 +111,15 @@ export default function GithubSection() {
         className="mb-8 overflow-x-auto rounded-2xl border border-slate-200 bg-white/60 p-6 dark:border-line dark:bg-surface/60"
       >
         {mounted ? (
-          <GitHubCalendar
-            username={profile.githubUsername}
+          <ActivityCalendar
+            data={contribs}
             theme={theme}
             blockSize={11}
             blockMargin={3}
+            loading={status === "loading"}
+            labels={{
+              totalCount: "{{count}} kontribusi (2025 — sekarang)",
+            }}
           />
         ) : (
           <div className="h-[120px] animate-pulse rounded-xl bg-slate-200/60 dark:bg-white/5" />
