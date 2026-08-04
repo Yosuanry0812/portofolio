@@ -9,6 +9,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import EasterEgg from "@/components/EasterEgg";
+import BackgroundFX from "@/components/BackgroundFX";
 import Snow from "@/components/Snow";
 import CursorTrail from "@/components/CursorTrail";
 
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <BackgroundFX />
       <Snow />
       <CursorTrail />
       <main id="konten">
