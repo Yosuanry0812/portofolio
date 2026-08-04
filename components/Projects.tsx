@@ -29,7 +29,7 @@ function langColor(tech: string[]): { color: string; label: string } {
     const hit = tech.find((t) => t.includes(lc.match));
     if (hit) return { color: lc.color, label: lc.match };
   }
-  return { color: "#34d399", label: "Other" };
+  return { color: "#f472b6", label: "Other" };
 }
 
 function slugify(judul: string) {
@@ -60,8 +60,8 @@ export default function Projects() {
       {/* Bar filter ala command line */}
       <div className="mb-10 flex flex-wrap items-center gap-2 overflow-hidden rounded-xl border border-slate-200 bg-white/60 font-mono text-sm dark:border-line dark:bg-surface/60">
         <span className="hidden px-4 py-3 text-slate-500 sm:block dark:text-slate-400">
-          <span className="text-emerald-400">$</span> ls proyek --kategori=
-          <span className="text-violet-400">{filter}</span>
+          <span className="text-pink-400">$</span> ls proyek --kategori=
+          <span className="text-purple-400">{filter}</span>
         </span>
         <div className="flex flex-1 flex-wrap gap-1 p-2 sm:justify-end">
           {filters.map((f) => (
@@ -73,8 +73,8 @@ export default function Projects() {
               className={cn(
                 "rounded-lg px-3 py-1.5 font-mono text-xs transition-colors",
                 filter === f.key
-                  ? "bg-emerald-500 text-slate-900 shadow-lg shadow-emerald-500/25"
-                  : "text-slate-500 hover:bg-white/60 hover:text-emerald-400 dark:text-slate-400 dark:hover:bg-white/5"
+                  ? "bg-pink-500 text-slate-900 shadow-lg shadow-pink-500/25"
+                  : "text-slate-500 hover:bg-white/60 hover:text-pink-400 dark:text-slate-400 dark:hover:bg-white/5"
               )}
             >
               {f.label}
@@ -96,15 +96,15 @@ export default function Projects() {
                 exit={{ opacity: 0, scale: reduce ? 1 : 0.95 }}
                 transition={{ duration: 0.3 }}
                 onMouseMove={handleMove}
-                className="card-spotlight group flex flex-col rounded-2xl border border-slate-200 bg-white/60 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 dark:border-line dark:bg-surface/60 dark:hover:border-emerald-500/50"
+                className="card-spotlight group flex flex-col rounded-2xl border border-slate-200 bg-white/60 transition-all duration-300 hover:-translate-y-1.5 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 dark:border-line dark:bg-surface/60 dark:hover:border-pink-500/50"
               >
                 {/* Breadcrumb + index */}
                 <div className="flex items-center justify-between border-b border-slate-100 px-5 pt-4 pb-3 font-mono text-[11px] text-slate-400 dark:border-white/5 dark:text-slate-500">
                   <span className="truncate">
-                    <span className="text-cyan-400">~/</span>proyek/
+                    <span className="text-sky-400">~/</span>proyek/
                     <span className="text-slate-500 dark:text-slate-400">{slugify(project.judul)}.tsx</span>
                   </span>
-                  <span className="shrink-0 text-emerald-400/70">
+                  <span className="shrink-0 text-pink-400/70">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -112,18 +112,18 @@ export default function Projects() {
                 {/* Header kartu */}
                 <div className="flex items-start justify-between px-5 pt-5">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 transition-transform group-hover:scale-110">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-pink-500/30 bg-pink-500/10 text-pink-400 transition-transform group-hover:scale-110">
                       <Folder size={18} />
                     </span>
                     <div>
-                      <h3 className="font-semibold text-slate-900 transition-colors group-hover:text-emerald-400 dark:text-white dark:group-hover:text-emerald-400">
+                      <h3 className="font-semibold text-slate-900 transition-colors group-hover:text-pink-400 dark:text-white dark:group-hover:text-pink-400">
                         {project.judul}
                       </h3>
                       <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                         <span className="h-2 w-2 rounded-full" style={{ backgroundColor: lang.color }} />
                         {lang.label}
                         <span className="text-slate-300 dark:text-slate-600">·</span>
-                        <span className="text-emerald-500">{project.kategori === "mobile" ? "mobile" : "web"}</span>
+                        <span className="text-pink-500">{project.kategori === "mobile" ? "mobile" : "web"}</span>
                       </p>
                     </div>
                   </div>
@@ -131,8 +131,8 @@ export default function Projects() {
                     className={cn(
                       "shrink-0 rounded-md border px-2 py-0.5 font-mono text-[10px]",
                       project.demo
-                        ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
-                        : "border-cyan-500/40 bg-cyan-500/10 text-cyan-400"
+                        ? "border-pink-500/40 bg-pink-500/10 text-pink-400"
+                        : "border-sky-500/40 bg-sky-500/10 text-sky-400"
                     )}
                   >
                     {project.demo ? "deployed" : "repo-only"}
@@ -149,7 +149,7 @@ export default function Projects() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="rounded-md bg-slate-100 px-2 py-1 font-mono text-[11px] text-slate-600 transition-colors hover:bg-emerald-500/10 hover:text-emerald-400 dark:bg-white/5 dark:text-slate-400 dark:hover:text-emerald-400"
+                      className="rounded-md bg-slate-100 px-2 py-1 font-mono text-[11px] text-slate-600 transition-colors hover:bg-pink-500/10 hover:text-pink-400 dark:bg-white/5 dark:text-slate-400 dark:hover:text-pink-400"
                     >
                       {t}
                     </span>
@@ -165,7 +165,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Demo ${project.judul}`}
-                        className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:bg-emerald-500/10 hover:text-emerald-400 dark:text-slate-400"
+                        className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:bg-pink-500/10 hover:text-pink-400 dark:text-slate-400"
                       >
                         demo <ExternalLink size={13} />
                       </a>
@@ -175,7 +175,7 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Repo ${project.judul}`}
-                      className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:bg-cyan-500/10 hover:text-cyan-400 dark:text-slate-400"
+                      className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:bg-sky-500/10 hover:text-sky-400 dark:text-slate-400"
                     >
                       repo <Github size={13} />
                     </a>

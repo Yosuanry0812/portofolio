@@ -21,7 +21,7 @@ export const profile = {
   siteUrl: "https://GANTI.vercel.app",
 
   // GANTI: taruh foto kamu di /public/foto.jpg lalu isi "/foto.jpg" (kosongkan untuk placeholder)
-  foto: "",
+  foto: "/Yosua_foto.jpg",
 
   socials: [
     { nama: "GitHub", url: "https://github.com/Yosuanry0812" },

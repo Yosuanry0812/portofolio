@@ -15,7 +15,7 @@
   }
 
   ::selection {
-    @apply bg-emerald-500/30 text-emerald-200;
+    @apply bg-pink-500/30 text-pink-200;
   }
 
   ::-webkit-scrollbar {
@@ -44,7 +44,7 @@
     inset: 0;
     background: radial-gradient(
       480px circle at var(--mx, 50%) var(--my, 50%),
-      rgb(52 211 153 / 0.1),
+      rgb(244 114 182 / 0.1),
       transparent 45%
     );
     opacity: 0;
@@ -60,7 +60,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-pink-400 via-sky-400 to-purple-400 bg-clip-text text-transparent;
   }
 }
 

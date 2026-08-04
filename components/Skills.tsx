@@ -8,7 +8,7 @@ import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
 
 const icons = [Code2, Server, Database, Cloud, BrainCircuit];
-const accents = ["text-emerald-400", "text-cyan-400", "text-violet-400", "text-amber-400", "text-pink-400"];
+const accents = ["text-pink-400", "text-sky-400", "text-purple-400", "text-yellow-400", "text-pink-400"];
 
 export default function Skills() {
   const [active, setActive] = useState(0);
@@ -31,13 +31,13 @@ export default function Skills() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-emerald-500/5 dark:border-line dark:bg-surface"
+        className="overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-pink-500/5 dark:border-line dark:bg-surface"
       >
         {/* Header terminal */}
         <div className="flex items-center gap-2 border-b border-slate-200 bg-white/60 px-4 py-3 dark:border-line dark:bg-slate-900/60">
-          <span className="h-3 w-3 rounded-full bg-red-500" />
+          <span className="h-3 w-3 rounded-full bg-pink-500" />
           <span className="h-3 w-3 rounded-full bg-yellow-500" />
-          <span className="h-3 w-3 rounded-full bg-green-500" />
+          <span className="h-3 w-3 rounded-full bg-sky-500" />
           <span className="ml-3 font-mono text-xs text-slate-500 dark:text-slate-400">
             yosuanry@devfolio: ~/stack.ts
           </span>
@@ -64,11 +64,11 @@ export default function Skills() {
                   className={cn(
                     "flex items-center gap-2 whitespace-nowrap border-l-2 px-4 py-2.5 font-mono text-sm transition-colors",
                     isActive
-                      ? "border-emerald-400 bg-emerald-500/5 text-emerald-400"
+                      ? "border-pink-400 bg-pink-500/5 text-pink-400"
                       : "border-transparent text-slate-500 hover:bg-white/5 hover:text-slate-200 dark:text-slate-500 dark:hover:text-slate-200"
                   )}
                 >
-                  <TabIcon size={14} className={isActive ? "text-emerald-400" : ""} />
+                  <TabIcon size={14} className={isActive ? "text-pink-400" : ""} />
                   {s.grup.toLowerCase()}
                   <span className="ml-auto font-mono text-[10px] text-slate-500">{s.items.length}</span>
                 </button>
@@ -99,7 +99,7 @@ export default function Skills() {
                       initial={{ opacity: 0, y: reduce ? 0 : 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.25, delay: idx * 0.05 }}
-                      className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white/60 px-4 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/40 dark:border-line dark:bg-bg/60 dark:hover:border-emerald-500/40"
+                      className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white/60 px-4 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-pink-500/40 dark:border-line dark:bg-bg/60 dark:hover:border-pink-500/40"
                     >
                       <span className={cn("h-2 w-2 shrink-0 rounded-[2px]", accent)} />
                       <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{item}</span>
@@ -116,11 +116,11 @@ export default function Skills() {
 
         {/* Footer terminal */}
         <div className="flex items-center gap-2 border-t border-slate-200 bg-white/60 px-4 py-2.5 font-mono text-xs text-slate-500 dark:border-line dark:bg-slate-900/60 dark:text-slate-400">
-          <span className="text-emerald-400">➜</span>
-          <span className="text-cyan-400">~</span>
+          <span className="text-pink-400">➜</span>
+          <span className="text-sky-400">~</span>
           cat stack.ts --kategori=
           <span className={cn("font-medium", accent)}>{group.grup.toLowerCase()}</span>
-          <span className="ml-0.5 inline-block h-3.5 w-2 animate-blink bg-emerald-400 align-middle" />
+          <span className="ml-0.5 inline-block h-3.5 w-2 animate-blink bg-pink-400 align-middle" />
         </div>
       </motion.div>
     </section>

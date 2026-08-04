@@ -25,12 +25,12 @@ export default function Experience() {
             transition={{ duration: 0.5, delay: i * 0.1 }}
             className="relative pb-10 last:pb-0"
           >
-            <span className="absolute -left-[37px] top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-emerald-500 bg-white dark:bg-bg">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span className="absolute -left-[37px] top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-pink-500 bg-white dark:bg-bg">
+              <span className="h-1.5 w-1.5 rounded-full bg-pink-400" />
             </span>
-            <p className="font-mono text-sm text-cyan-400">{item.periode}</p>
+            <p className="font-mono text-sm text-sky-400">{item.periode}</p>
             <h3 className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{item.posisi}</h3>
-            <p className="text-sm text-emerald-500">{item.tempat}</p>
+            <p className="text-sm text-pink-500">{item.tempat}</p>
             <p className="mt-2 text-slate-600 dark:text-slate-400">{item.deskripsi}</p>
           </motion.li>
         ))}

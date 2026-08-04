@@ -9,7 +9,6 @@ const links = [
   { label: "Tentang", href: "#tentang" },
   { label: "Keahlian", href: "#keahlian" },
   { label: "Proyek", href: "#proyek" },
-  { label: "Aktivitas", href: "#aktivitas" },
   { label: "Kontak", href: "#kontak" },
 ];
 
@@ -31,7 +30,7 @@ export default function Navbar() {
       {/* Scroll progress */}
       <motion.div
         style={{ scaleX: progress }}
-        className="h-0.5 origin-left bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400"
+        className="h-0.5 origin-left bg-gradient-to-r from-pink-400 via-sky-400 to-purple-400"
       />
       <div
         className={cn(
@@ -43,9 +42,9 @@ export default function Navbar() {
       >
         <nav className="container-x flex h-16 items-center justify-between">
           <a href="#beranda" className="group font-mono text-lg font-bold text-slate-900 dark:text-white">
-            <span className="text-emerald-400 group-hover:text-cyan-400">&lt;</span>
+            <span className="text-pink-400 group-hover:text-sky-400">&lt;</span>
             {profile.namaPanggilan.toLowerCase()}
-            <span className="text-violet-400"> /&gt;</span>
+            <span className="text-purple-400"> /&gt;</span>
           </a>
 
           <ul className="hidden items-center gap-1 md:flex">
@@ -53,7 +52,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="rounded-lg px-3 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-900/5 hover:text-emerald-500 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-emerald-400"
+                  className="rounded-lg px-3 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-900/5 hover:text-pink-500 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-pink-400"
                 >
                   {link.label}
                 </a>
@@ -62,8 +61,8 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <span className="hidden items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 font-mono text-xs text-emerald-400 sm:flex">
-              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-emerald-400" />
+            <span className="hidden items-center gap-2 rounded-full border border-pink-500/30 bg-pink-500/10 px-3 py-1.5 font-mono text-xs text-pink-400 sm:flex">
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-pink-400" />
               Open to Opportunities
             </span>
           </div>
