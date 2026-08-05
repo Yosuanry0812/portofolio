@@ -25,7 +25,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: reduce ? 0 : 0.2 }}
           onClick={() => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" })}
-          className="fixed bottom-6 right-6 z-40 rounded-xl border border-pink-500/40 bg-surface/80 p-3 text-pink-400 shadow-lg shadow-pink-500/10 backdrop-blur transition-colors hover:bg-pink-500/10 dark:bg-surface/80"
+          className="fixed bottom-6 right-6 z-40 rounded-xl border border-cyan-500/40 bg-surface/80 p-3 text-cyan-400 shadow-lg shadow-cyan-500/10 backdrop-blur transition-colors hover:bg-cyan-500/10 dark:bg-surface/80"
         >
           <ArrowUp size={20} />
         </motion.button>

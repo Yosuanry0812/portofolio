@@ -15,7 +15,7 @@ export default function Footer() {
     <footer className="border-t border-slate-200 dark:border-line">
       <div className="container-x flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <p className="font-mono text-sm text-slate-500 dark:text-slate-400">
-          <span className="text-pink-400">©</span> {new Date().getFullYear()}{" "}
+          <span className="text-cyan-400">©</span> {new Date().getFullYear()}{" "}
           <span className="text-slate-900 dark:text-white">{profile.nama}</span>
         </p>
 
@@ -29,7 +29,7 @@ export default function Footer() {
                 target={social.nama === "Email" ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 aria-label={social.nama}
-                className="rounded-xl border border-slate-200 p-2.5 text-slate-500 transition-all hover:-translate-y-1 hover:border-pink-500 hover:text-pink-500 dark:border-line dark:text-slate-400 dark:hover:border-pink-500 dark:hover:text-pink-400"
+                className="rounded-xl border border-slate-200 p-2.5 text-slate-500 transition-all hover:-translate-y-1 hover:border-cyan-500 hover:text-cyan-500 dark:border-line dark:text-slate-400 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
               >
                 <Icon size={18} />
               </a>

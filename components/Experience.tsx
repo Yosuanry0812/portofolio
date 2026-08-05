@@ -12,7 +12,7 @@ export default function Experience() {
       {/* Screenshot-style header */}
       <div className="mb-12 flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-emerald-400">
         <Calendar size={16} className="text-emerald-400" />
-        <span>trajectory timeline</span>
+        <span>Career Timeline</span>
       </div>
 
       {/* Horizontal Timeline Container */}

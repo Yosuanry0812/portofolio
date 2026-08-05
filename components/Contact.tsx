@@ -23,7 +23,7 @@ const socialIcons: Record<string, typeof Github> = {
 };
 
 const inputClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm text-slate-900 shadow-inner outline-none transition-all placeholder:text-slate-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 dark:border-line dark:bg-bg dark:text-white";
+  "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm text-slate-900 shadow-inner outline-none transition-all placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:border-line dark:bg-bg dark:text-white";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -69,11 +69,10 @@ export default function Contact() {
   return (
     <section id="contact" className="container-x relative scroll-mt-24 overflow-hidden py-24">
       {/* Decorative glow */}
-      <div className="pointer-events-none absolute -top-32 right-0 h-80 w-80 rounded-full bg-pink-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-32 right-0 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 left-0 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
 
       <SectionHeading
-        label="contact.tsx"
         judul="Get In Touch"
         deskripsi="Have a project, job opportunity, or just want to say hi? Send a message."
       />
@@ -88,39 +87,30 @@ export default function Contact() {
           className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/60 p-6 dark:border-line dark:bg-surface/60"
         >
           {/* Terminal-style top line */}
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-pink-500 via-sky-500 to-pink-500" />
-
-          <div className="flex items-center gap-2 font-mono text-xs text-slate-500 dark:text-slate-400">
-            <span className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-pink-500" />
-              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500" />
-              <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
-            </span>
-            <span className="ml-2 truncate">yosuanry@devfolio: ~/contact</span>
-          </div>
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-cyan-500" />
 
           <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
-            Don't hesitate,
+            Don't be shy,
             <br />
-            <span className="text-gradient">reach out directly.</span>
+            <span className="text-gradient">let's talk.</span>
           </h3>
 
           <div className="mt-4 flex items-center gap-2 font-mono text-xs">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-500" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500" />
             </span>
-            <span className="text-slate-500 dark:text-slate-400">// status: open to opportunities</span>
+            <span className="text-slate-500 dark:text-slate-400">open to opportunities</span>
           </div>
 
           {/* Email + copy button */}
           <button
             type="button"
             onClick={copyEmail}
-            className="group mt-6 flex w-full items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-pink-500 to-sky-500 p-[1px] transition-transform hover:-translate-y-0.5"
+            className="group mt-6 flex w-full items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 p-[1px] transition-transform hover:-translate-y-0.5"
           >
             <span className="flex w-full items-center gap-3 rounded-xl bg-white px-4 py-4 dark:bg-surface">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-pink-500/10 text-pink-500 transition-colors group-hover:bg-pink-500 group-hover:text-white dark:text-pink-400">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 transition-colors group-hover:bg-cyan-500 group-hover:text-white dark:text-cyan-400">
                 <Mail size={18} />
               </span>
               <span className="min-w-0 text-left">
@@ -138,7 +128,7 @@ export default function Contact() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    className="flex shrink-0 items-center gap-1 rounded-lg bg-pink-500/10 px-3 py-1.5 text-xs font-medium text-pink-400"
+                    className="flex shrink-0 items-center gap-1 rounded-lg bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-400"
                   >
                     <Check size={14} /> Copied!
                   </motion.span>
@@ -148,7 +138,7 @@ export default function Contact() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="shrink-0 text-slate-400 transition-colors group-hover:text-pink-400"
+                    className="shrink-0 text-slate-400 transition-colors group-hover:text-cyan-400"
                   >
                     <Copy size={18} />
                   </motion.span>
@@ -171,16 +161,16 @@ export default function Contact() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white/60 px-4 py-3 text-slate-700 transition-all hover:translate-x-1 hover:border-pink-500/40 hover:shadow-lg hover:shadow-pink-500/5 dark:border-line dark:bg-surface/60 dark:text-slate-300 dark:hover:border-pink-500/40 dark:hover:text-pink-400"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white/60 px-4 py-3 text-slate-700 transition-all hover:translate-x-1 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5 dark:border-line dark:bg-surface/60 dark:text-slate-300 dark:hover:border-cyan-500/40 dark:hover:text-cyan-400"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition-colors group-hover:bg-pink-500/10 group-hover:text-pink-400 dark:bg-bg dark:text-slate-400">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition-colors group-hover:bg-cyan-500/10 group-hover:text-cyan-400 dark:bg-bg dark:text-slate-400">
                     <Icon size={15} />
                   </span>
                   <span className="font-medium">{social.nama}</span>
                   <span className="ml-auto font-mono text-xs text-slate-400">0{i + 1}</span>
                   <ArrowUpRight
                     size={15}
-                    className="text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-pink-400"
+                    className="text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan-400"
                   />
                 </motion.a>
               );
@@ -195,18 +185,17 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl bg-gradient-to-br from-pink-500/40 via-slate-200/10 to-sky-500/40 p-[1px] dark:from-pink-500/40 dark:via-line dark:to-sky-500/40"
+          className="rounded-2xl bg-gradient-to-br from-cyan-500/40 via-slate-200/10 to-sky-500/40 p-[1px] dark:from-cyan-500/40 dark:via-line dark:to-sky-500/40"
         >
           <div className="rounded-[15px] bg-white/80 p-6 backdrop-blur dark:bg-surface/80">
             <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
-              <span className="text-pink-400">➜</span>{" "}
-              <span className="text-sky-400">~</span> create new message
+              Send a message
             </p>
 
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <label className="block">
                 <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  <span className="text-pink-400">$</span> your_name
+                  Your Name
                 </span>
                 <input
                   name="nama"
@@ -218,7 +207,7 @@ export default function Contact() {
               </label>
               <label className="block">
                 <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  <span className="text-pink-400">$</span> your_email
+                  Your Email
                 </span>
                 <input
                   name="email"
@@ -232,7 +221,7 @@ export default function Contact() {
 
             <label className="mt-5 block">
               <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                <span className="text-pink-400">$</span> your_message
+                Your Message
               </span>
               <textarea
                 name="pesan"
@@ -245,7 +234,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 to-sky-500 px-6 py-3.5 font-medium text-slate-900 shadow-lg shadow-pink-500/25 transition-all hover:shadow-pink-500/40 hover:brightness-110"
+              className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 px-6 py-3.5 font-medium text-slate-900 shadow-lg shadow-cyan-500/25 transition-all hover:shadow-cyan-500/40 hover:brightness-110"
             >
               <MessageCircle size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               Send via WhatsApp
@@ -257,9 +246,9 @@ export default function Contact() {
                   initial={{ opacity: 0, y: reduce ? 0 : 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="mt-4 rounded-xl border border-pink-500/40 bg-pink-500/10 px-4 py-3 font-mono text-sm text-pink-400"
+                  className="mt-4 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-3 font-mono text-sm text-cyan-400"
                 >
-                  <span className="text-pink-400">✓</span> WhatsApp opened — just hit send
+                  <span className="text-cyan-400">✓</span> WhatsApp opened — just hit send
                   there.
                 </motion.p>
               ) : null}

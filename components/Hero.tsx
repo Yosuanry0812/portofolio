@@ -1,43 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, FileDown, Sparkles } from "lucide-react";
-import { profile, typingRoles } from "@/data/profile";
+import { ArrowDown, FileDown } from "lucide-react";
+import { about, profile } from "@/data/profile";
+import { getSkillColor, getSkillIcon } from "@/data/skills-icons";
 
-function useTypewriter(words: string[]) {
-  const [index, setIndex] = useState(0);
-  const [text, setText] = useState("");
-  const [deleting, setDeleting] = useState(false);
+const heroIcons = [
+  "TypeScript",
+  "React.js",
+  "Next.js",
+  "Node.js",
+  "Docker",
+  "PostgreSQL",
+  "Supabase",
+  "Laravel",
+];
 
-  useEffect(() => {
-    const word = words[index % words.length];
-    const done = text === word;
-    const empty = text === "";
-
-    const delay = deleting ? 40 : done ? 1800 : 85;
-
-    const timer = setTimeout(() => {
-      if (!deleting && !done) {
-        setText(word.slice(0, text.length + 1));
-      } else if (!deleting && done) {
-        setDeleting(true);
-      } else if (deleting && !empty) {
-        setText(word.slice(0, text.length - 1));
-      } else if (deleting && empty) {
-        setDeleting(false);
-        setIndex((i) => i + 1);
-      }
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [text, deleting, index, words]);
-
-  return text;
-}
+const iconPositions = [
+  { top: "6%", left: "34%" },
+  { top: "12%", left: "62%" },
+  { top: "26%", left: "6%" },
+  { top: "30%", left: "72%" },
+  { top: "52%", left: "8%" },
+  { top: "50%", left: "68%" },
+  { top: "72%", left: "28%" },
+  { top: "78%", left: "58%" },
+];
 
 export default function Hero() {
-  const typed = useTypewriter(typingRoles);
   const reduce = useReducedMotion();
 
   const fadeUp = (delay: number) => ({
@@ -49,18 +39,14 @@ export default function Hero() {
   return (
     <section id="home" className="container-x relative flex min-h-screen items-center overflow-hidden pt-28 pb-20">
       {/* Glow decoration */}
-      <div className="pointer-events-none absolute -left-32 top-24 h-72 w-72 rounded-full bg-pink-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 top-24 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" />
 
-      <div className="grid w-full items-center gap-12">
+      <div className="grid w-full items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Left text */}
         <div>
-          <motion.p {...fadeUp(0)} className="mb-4 font-mono text-sm text-pink-400">
-            <span className="text-sky-400">$</span> whoami
-          </motion.p>
-
           <motion.h1
-            {...fadeUp(0.1)}
+            {...fadeUp(0)}
             className="text-4xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-white"
           >
             {profile.nama.split(" ")[0]}
@@ -68,45 +54,72 @@ export default function Hero() {
             <span className="text-gradient">{profile.nama.split(" ").slice(1).join(" ")}</span>
           </motion.h1>
 
-          <motion.p {...fadeUp(0.2)} className="mt-5 h-8 font-mono text-lg text-slate-600 dark:text-slate-400">
-            <span className="text-purple-400">{"const"}</span> role ={" "}
-            <span className="text-pink-400">"{typed}"</span>
-            <span className="ml-0.5 inline-block h-5 w-2.5 animate-blink bg-pink-400 align-middle" />
-          </motion.p>
-
-          <motion.p {...fadeUp(0.3)} className="mt-6 max-w-lg text-slate-600 dark:text-slate-400">
+          <motion.p {...fadeUp(0.1)} className="mt-6 max-w-lg text-slate-600 dark:text-slate-400">
             {profile.tagline}
           </motion.p>
 
-          <motion.div {...fadeUp(0.4)} className="mt-9 flex flex-wrap items-center gap-4">
+          <motion.div {...fadeUp(0.2)} className="mt-9 flex flex-wrap items-center gap-4">
             <a
               href="#projects"
-              className="group inline-flex items-center gap-2 rounded-xl bg-pink-500 px-6 py-3 font-medium text-slate-900 shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:bg-pink-400"
+              className="group inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 font-medium text-slate-900 shadow-lg shadow-cyan-500/25 transition-all hover:-translate-y-0.5 hover:bg-cyan-400"
             >
               <ArrowDown size={18} className="transition-transform group-hover:translate-y-0.5" />
               View Projects
             </a>
             <a
               href={profile.cvUrl}
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-all hover:-translate-y-0.5 hover:border-pink-500 hover:text-pink-500 dark:border-line dark:text-slate-300 dark:hover:border-pink-500 dark:hover:text-pink-400"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-all hover:-translate-y-0.5 hover:border-cyan-500 hover:text-cyan-500 dark:border-line dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
             >
               <FileDown size={18} />
               Download CV
             </a>
           </motion.div>
+        </div>
 
-          {/* Dev persona strip */}
-          <motion.div
-            {...fadeUp(0.5)}
-            className="mt-10 flex max-w-md items-center gap-3 rounded-xl border border-slate-200 bg-white/60 px-4 py-3 font-mono text-sm text-slate-500 dark:border-line dark:bg-surface/60 dark:text-slate-400"
-          >
-            <Sparkles size={16} className="shrink-0 text-sky-400" />
-            <span className="truncate">
-              <span className="text-slate-900 dark:text-slate-200">$</span> npm i{" "}
-              <span className="text-pink-400">yosuanry</span>
-              <span className="ml-0.5 inline-block h-4 w-2 animate-blink bg-sky-400 align-middle" />
-            </span>
-          </motion.div>
+        {/* Right: floating tech icons */}
+        <div className="relative hidden lg:block">
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="h-96 w-96 rounded-full bg-gradient-to-br from-cyan-500/20 via-sky-500/10 to-purple-500/20 blur-3xl" />
+          </div>
+
+          <div className="relative mx-auto flex h-[480px] w-full max-w-md items-center justify-center">
+            {/* Center rings */}
+            <div className="absolute h-72 w-72 rounded-full border border-slate-200/80 dark:border-line" />
+            <div className="absolute h-52 w-52 rounded-full border border-slate-200/60 dark:border-line/70" />
+
+            {/* Center monogram */}
+            <motion.div
+              initial={{ opacity: 0, scale: reduce ? 1 : 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="relative flex h-28 w-28 items-center justify-center rounded-full bg-white/70 shadow-xl shadow-cyan-500/10 backdrop-blur dark:bg-surface/70"
+            >
+              <span className="text-3xl font-bold text-gradient">{about.inisial}</span>
+            </motion.div>
+
+            {/* Floating tech icons */}
+            {heroIcons.map((name, i) => {
+              const Icon = getSkillIcon(name);
+              const color = getSkillColor(name);
+              const pos = iconPositions[i];
+              return (
+                <motion.div
+                  key={name}
+                  className="absolute flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white/70 shadow-lg shadow-slate-900/5 backdrop-blur dark:border-line dark:bg-surface/70 dark:shadow-black/40"
+                  style={{ top: pos.top, left: pos.left }}
+                  initial={{ opacity: 0, scale: 0.6 }}
+                  animate={{ opacity: 1, scale: 1, y: reduce ? 0 : [0, -14, 0] }}
+                  transition={{
+                    opacity: { duration: 0.5, delay: 0.4 + i * 0.1 },
+                    scale: { duration: 0.5, delay: 0.4 + i * 0.1 },
+                    y: { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.45 },
+                  }}
+                >
+                  <Icon size={26} style={color ? { color } : undefined} />
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

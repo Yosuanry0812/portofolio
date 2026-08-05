@@ -2,7 +2,7 @@ export const profile = {
   nama: "Yosuanry Simbolon",
   namaPanggilan: "Yosua",
   peran: "Full-Stack Developer",
-  tagline: "Building modern web apps that are fast, beautiful, and scalable.",
+  tagline: "I build fast, beautiful, and scalable web apps.",
   githubUsername: "Yosuanry0812",
 
   // REPLACE: your email address
@@ -31,28 +31,9 @@ export const profile = {
   ],
 };
 
-// Words typed alternately in the Hero
-export const typingRoles = [
-  "Full-Stack Developer",
-  "Frontend Engineer",
-  "UI/UX Enthusiast",
-  "Open Source Contributor",
-];
-
-// JSON data shown in the Hero terminal
-export const terminalData = [
-  { key: "name", value: "Yosuanry Simbolon", type: "string" },
-  { key: "role", value: "Full-Stack Developer", type: "string" },
-  { key: "location", value: "Indonesia", type: "string" },
-  { key: "status", value: "open to opportunities", type: "string" },
-  { key: "languages", value: "['TS', 'JS', 'PHP', 'Dart']", type: "array" },
-  { key: "email", value: profile.email, type: "string" },
-  { key: "availableForHire", value: "true", type: "boolean" },
-];
-
 export const about = {
   // REPLACE: write a short bio about yourself
-  bio: "Hi, I'm Yosuanry Simbolon — a developer who loves turning ideas into digital products that are functional and enjoyable to use. Focused on sharp frontends, clean backends, and the small details that make experiences feel premium.",
+  bio: "Hi, I'm Yosuanry Simbolon a developer who loves turning ideas into digital products people genuinely enjoy using. I obsess over sharp frontends, clean backends, and the small details that make an experience feel premium.",
   info: [
     { label: "Location", value: "Indonesia" },
     { label: "Status", value: "Open to Opportunities" },
@@ -66,17 +47,17 @@ export const about = {
 export const skills = [
   {
     grup: "Languages",
-    deskripsi: "Programming languages I work with",
+    deskripsi: "The programming languages I work with",
     items: ["TypeScript", "JavaScript", "Python", "PHP", "Kotlin", "Java"],
   },
   {
     grup: "Backend & Frameworks",
-    deskripsi: "Stack for building web & mobile apps",
+    deskripsi: "The stack I use to build web and mobile apps",
     items: ["Node.js", "Laravel", "React Native", "Expo", "React.js", "Next.js", "Vue.js"],
   },
   {
     grup: "Database",
-    deskripsi: "Data storage and management",
+    deskripsi: "Storing and managing data",
     items: ["PostgreSQL", "MySQL", "Supabase"],
   },
   {
@@ -86,7 +67,7 @@ export const skills = [
   },
   {
     grup: "AI & Automation",
-    deskripsi: "AI tools for developer productivity",
+    deskripsi: "AI tools that boost developer productivity",
     items: ["DeepSeek", "Claude Code", "OpenCode", "9Router", "GitHub", "ClickUp"],
   },
 ];
@@ -111,7 +92,7 @@ export const projects: Project[] = [
   {
     judul: "Pondok Daun Finance",
     deskripsi:
-      "A finance tracking app for managing Pondok Daun's treasury. Manage income, expenses, and financial reports in an organized way.",
+      "Finance app for managing Pondok Daun's cash flow income, expenses, and reports in one organized place.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://keuangan-pondok-daun.vercel.app",
@@ -120,7 +101,7 @@ export const projects: Project[] = [
   {
     judul: "Site Plan Website",
     deskripsi:
-      "A web-based site planning app for visualizing and managing land layout interactively.",
+      "Interactive web app for visualizing and planning land layouts.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://site-plan-website.vercel.app",
@@ -129,7 +110,7 @@ export const projects: Project[] = [
   {
     judul: "Pondok Daun Website",
     deskripsi:
-      "A Pondok Daun profile website showcasing activities, facilities, and contact info neatly and modernly.",
+      "Modern profile site for Pondok Daun, presenting activities, facilities, and contact info in a clean layout.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://pondok-daun-website.vercel.app",
@@ -138,7 +119,7 @@ export const projects: Project[] = [
   {
     judul: "Bangkiang Jaran Web",
     deskripsi:
-      "A Laravel-based website for managing Bangkiang Jaran content and services with an admin panel.",
+      "Laravel-powered site for Bangkiang Jaran with content management and a full admin panel.",
     tech: ["Laravel", "Blade", "PHP", "MySQL"],
     kategori: "web",
     demo: "",
@@ -147,7 +128,7 @@ export const projects: Project[] = [
   {
     judul: "Batik Mobile",
     deskripsi:
-      "A mobile app introducing batik: product catalog, motif details, and cultural information.",
+      "Mobile app that showcases Indonesian batik catalog, motif details, and cultural context.",
     tech: ["React Native", "JavaScript"],
     kategori: "mobile",
     demo: "",
@@ -156,7 +137,7 @@ export const projects: Project[] = [
   {
     judul: "Credit Agreement Progress",
     deskripsi:
-      "A tracker for credit agreement applications to monitor status and documents from start to finish.",
+      "End-to-end tracker for credit agreement applications status, documents, and progress at a glance.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "",
@@ -177,36 +158,36 @@ export const experience: Experience[] = [
     periode: "Oct 2023 — Present",
     posisi: "Student (Semester 7)",
     tempat: "INSTIKI",
-    deskripsi: "Pursuing higher education while actively developing technical and organizational skills.",
+    deskripsi: "Pursuing a degree while building technical and organizational skills along the way.",
   },
   {
     periode: "Feb 2026 — May 2026",
-    posisi: "Internship (4 Months)",
+    posisi: "Intern",
     tempat: "NDS (New Directions Success) Guestlist",
-    deskripsi: "Interned for 4 months at NDS Guestlist, learning directly in a professional work environment.",
+    deskripsi: "4-month internship at NDS Guestlist, learning the ropes in a real professional environment.",
   },
   {
     periode: "May 2026 — Present",
-    posisi: "Part-Time Job",
+    posisi: "Part-Time Staff",
     tempat: "NDS (New Direction Success) Guestlist",
-    deskripsi: "Continued as a part-time worker at NDS Guestlist after the internship ended.",
+    deskripsi: "Stayed on as a part-time team member after the internship wrapped up.",
   },
   {
     periode: "2023 — 2024",
     posisi: "Head of PSDM Division",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Core board member managing human resource development within the organization.",
+    deskripsi: "Core board member leading human resource development for the organization.",
   },
   {
     periode: "2024 — 2025",
     posisi: "Vice Chairman",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Assisted the chairman in leading and coordinating all organizational divisions.",
+    deskripsi: "Worked alongside the chairman to lead and coordinate every division.",
   },
   {
     periode: "2025 — 2026",
     posisi: "Chairman",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Led FPK-KEMAHKRIS and was responsible for the direction and operations of the organization.",
+    deskripsi: "Led the organization, setting direction and keeping operations running smoothly.",
   },
 ];

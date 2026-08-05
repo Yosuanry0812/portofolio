@@ -15,7 +15,7 @@
   }
 
   ::selection {
-    @apply bg-pink-500/30 text-pink-200;
+    @apply bg-cyan-500/30 text-cyan-200;
   }
 
   ::-webkit-scrollbar {
@@ -60,7 +60,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-pink-400 via-sky-400 to-purple-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-400 bg-clip-text text-transparent;
   }
 }
 
