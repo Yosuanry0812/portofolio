@@ -19,11 +19,11 @@ export default function Skills() {
   const accent = accents[active % accents.length];
 
   return (
-    <section id="keahlian" className="container-x scroll-mt-24 py-24">
+    <section id="skills" className="container-x scroll-mt-24 py-24">
       <SectionHeading
-        label="keahlian.ts"
-        judul="Tech Stack & Keahlian"
-        deskripsi="Teknologi yang saya pakai untuk mewujudkan ide menjadi produk."
+        label="skills.ts"
+        judul="Tech Stack & Skills"
+        deskripsi="Technologies I use to turn ideas into products."
       />
 
       <motion.div
@@ -33,7 +33,7 @@ export default function Skills() {
         transition={{ duration: 0.6 }}
         className="overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-pink-500/5 dark:border-line dark:bg-surface"
       >
-        {/* Header terminal */}
+        {/* Terminal header */}
         <div className="flex items-center gap-2 border-b border-slate-200 bg-white/60 px-4 py-3 dark:border-line dark:bg-slate-900/60">
           <span className="h-3 w-3 rounded-full bg-pink-500" />
           <span className="h-3 w-3 rounded-full bg-yellow-500" />
@@ -42,7 +42,7 @@ export default function Skills() {
             yosuanry@devfolio: ~/stack.ts
           </span>
           <span className="ml-auto font-mono text-xs text-slate-400 dark:text-slate-500">
-            {skills.length} kategori
+            {skills.length} categories
           </span>
         </div>
 
@@ -76,7 +76,7 @@ export default function Skills() {
             })}
           </div>
 
-          {/* Konten kategori aktif */}
+          {/* Active category content */}
           <div className="min-w-0 p-5 sm:p-7">
             <AnimatePresence mode="wait">
               <motion.div
@@ -114,11 +114,11 @@ export default function Skills() {
           </div>
         </div>
 
-        {/* Footer terminal */}
+        {/* Terminal footer */}
         <div className="flex items-center gap-2 border-t border-slate-200 bg-white/60 px-4 py-2.5 font-mono text-xs text-slate-500 dark:border-line dark:bg-slate-900/60 dark:text-slate-400">
           <span className="text-pink-400">➜</span>
           <span className="text-sky-400">~</span>
-          cat stack.ts --kategori=
+          cat stack.ts --category=
           <span className={cn("font-medium", accent)}>{group.grup.toLowerCase()}</span>
           <span className="ml-0.5 inline-block h-3.5 w-2 animate-blink bg-pink-400 align-middle" />
         </div>

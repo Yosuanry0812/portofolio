@@ -30,7 +30,7 @@ export default function CursorTrail() {
     let raf = 0;
     let w = 0;
     let h = 0;
-    // Posisi kursor yang di-lerp supaya jejak halus & tertinggal natural
+    // Cursor position lerped so the trail is smooth & naturally lagged
     let tx = -100;
     let ty = -100;
     let cx = -100;
@@ -95,7 +95,7 @@ export default function CursorTrail() {
         }
         p.x += p.vx;
         p.y += p.vy;
-        // Melayang ringan seperti salju
+        // Light float like snow
         p.x += Math.sin(p.y * 0.02 + p.r) * 0.2;
 
         const t = p.life / p.maxLife;

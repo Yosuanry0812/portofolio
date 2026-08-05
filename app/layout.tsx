@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   description: profile.tagline,
   keywords: [
-    "portofolio",
+    "portfolio",
     "developer",
     profile.peran,
     "Next.js",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   authors: [{ name: profile.nama }],
   openGraph: {
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
     url: profile.siteUrl,
     siteName: profile.nama,
     title: `${profile.nama} — ${profile.peran}`,
@@ -54,13 +54,13 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className="dark">
+    <html lang="en" className="dark">
       <body className={`${inter.variable} ${jetbrains.variable} font-sans`}>
         <a
-          href="#konten"
+          href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-pink-500 focus:px-4 focus:py-2 focus:font-medium focus:text-slate-900"
         >
-          Lewati ke konten utama
+          Skip to main content
         </a>
         <script
           type="application/ld+json"

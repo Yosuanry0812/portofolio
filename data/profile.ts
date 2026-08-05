@@ -2,25 +2,25 @@ export const profile = {
   nama: "Yosuanry Simbolon",
   namaPanggilan: "Yosua",
   peran: "Full-Stack Developer",
-  tagline: "Membangun aplikasi web modern yang cepat, indah, dan terukur.",
+  tagline: "Building modern web apps that are fast, beautiful, and scalable.",
   githubUsername: "Yosuanry0812",
 
-  // GANTI: alamat email kamu
+  // REPLACE: your email address
   email: "yosuanry66@gmail.com",
 
-  // WhatsApp (nomor tanpa +62 — pakai format 628...)
+  // WhatsApp (number without +62 — use 628... format)
   whatsapp: "6281268247843",
 
-  // GANTI: URL Formspree dari https://formspree.io (sudah terisi dari akunmu)
+  // REPLACE: Formspree URL from https://formspree.io (already filled from your account)
   formspreeEndpoint: "https://formspree.io/f/xeeyyvly",
 
-  // GANTI: ganti dengan tautan file CV kamu (mis. /cv.pdf di folder public)
-  cvUrl: "#cv-belum-ada",
+  // REPLACE: link to your CV file (e.g. /cv.pdf in the public folder)
+  cvUrl: "#cv-not-available",
 
-  // GANTI: domain setelah deploy ke Vercel
+  // REPLACE: domain after deploying to Vercel
   siteUrl: "https://GANTI.vercel.app",
 
-  // GANTI: taruh foto kamu di /public/foto.jpg lalu isi "/foto.jpg" (kosongkan untuk placeholder)
+  // REPLACE: put your photo in /public/foto.jpg then fill "/foto.jpg" (leave empty for placeholder)
   foto: "/Yosua_foto.jpg",
 
   socials: [
@@ -31,7 +31,7 @@ export const profile = {
   ],
 };
 
-// Kalimat yang diketik bergantian di Hero
+// Words typed alternately in the Hero
 export const typingRoles = [
   "Full-Stack Developer",
   "Frontend Engineer",
@@ -39,60 +39,60 @@ export const typingRoles = [
   "Open Source Contributor",
 ];
 
-// Data JSON yang tampil di terminal Hero
+// JSON data shown in the Hero terminal
 export const terminalData = [
-  { key: "nama", value: "Yosuanry Simbolon", type: "string" },
-  { key: "peran", value: "Full-Stack Developer", type: "string" },
-  { key: "lokasi", value: "Indonesia", type: "string" },
+  { key: "name", value: "Yosuanry Simbolon", type: "string" },
+  { key: "role", value: "Full-Stack Developer", type: "string" },
+  { key: "location", value: "Indonesia", type: "string" },
   { key: "status", value: "open to opportunities", type: "string" },
-  { key: "bahasa", value: "['TS', 'JS', 'PHP', 'Dart']", type: "array" },
+  { key: "languages", value: "['TS', 'JS', 'PHP', 'Dart']", type: "array" },
   { key: "email", value: profile.email, type: "string" },
   { key: "availableForHire", value: "true", type: "boolean" },
 ];
 
 export const about = {
-  // GANTI: tulis bio singkat tentang kamu
-  bio: "Halo, saya Yosuanry Simbolon — developer yang senang mengubah ide menjadi produk digital yang fungsional dan enak dipakai. Fokus pada frontend yang tajam, backend yang bersih, dan detail kecil yang bikin pengalaman terasa premium.",
+  // REPLACE: write a short bio about yourself
+  bio: "Hi, I'm Yosuanry Simbolon — a developer who loves turning ideas into digital products that are functional and enjoyable to use. Focused on sharp frontends, clean backends, and the small details that make experiences feel premium.",
   info: [
-    { label: "Lokasi", value: "Indonesia" },
+    { label: "Location", value: "Indonesia" },
     { label: "Status", value: "Open to Opportunities" },
-    { label: "Bahasa", value: "Indonesia, English" },
-    { label: "Minat", value: "Web, Mobile, UI/UX" },
+    { label: "Languages", value: "Indonesian, English" },
+    { label: "Interests", value: "Web, Mobile, UI/UX" },
   ],
-  // GANTI: inisial untuk avatar placeholder
+  // REPLACE: initials for the avatar placeholder
   inisial: "YS",
 };
 
 export const skills = [
   {
-    grup: "Bahasa",
-    deskripsi: "Bahasa pemrograman yang saya kuasai",
+    grup: "Languages",
+    deskripsi: "Programming languages I work with",
     items: ["TypeScript", "JavaScript", "Python", "PHP", "Kotlin", "Java"],
   },
   {
     grup: "Backend & Frameworks",
-    deskripsi: "Stack untuk membangun aplikasi web & mobile",
+    deskripsi: "Stack for building web & mobile apps",
     items: ["Node.js", "Laravel", "React Native", "Expo", "React.js", "Next.js", "Vue.js"],
   },
   {
     grup: "Database",
-    deskripsi: "Penyimpanan dan pengelolaan data",
+    deskripsi: "Data storage and management",
     items: ["PostgreSQL", "MySQL", "Supabase"],
   },
   {
     grup: "Cloud & DevOps",
-    deskripsi: "Deployment, infrastruktur, dan otomasi",
+    deskripsi: "Deployment, infrastructure, and automation",
     items: ["Docker", "Cloudflare", "Vercel"],
   },
   {
     grup: "AI & Automation",
-    deskripsi: "Alat bantu AI untuk produktivitas developer",
+    deskripsi: "AI tools for developer productivity",
     items: ["DeepSeek", "Claude Code", "OpenCode", "9Router", "GitHub", "ClickUp"],
   },
 ];
 
-// Stack yang dikuasai — diambil otomatis dari semua kategori skill.
-// Pindah ke /data/skills-ikon.ts bila mau tambah ikon/logo per tech.
+// Mastered stack — taken automatically from all skill categories.
+// Move to /data/skills-icons.ts if you want to add icon/logo per tech.
 export const techMarquee = skills.flatMap((s) => s.items);
 
 export type ProjectCategory = "web" | "mobile";
@@ -106,12 +106,12 @@ export interface Project {
   repo: string;
 }
 
-// Repo asli dari GitHub (github.com/Yosuanry0812)
+// Original repos from GitHub (github.com/Yosuanry0812)
 export const projects: Project[] = [
   {
-    judul: "Keuangan Pondok Daun",
+    judul: "Pondok Daun Finance",
     deskripsi:
-      "Aplikasi pencatatan keuangan untuk pengelolaan kas Pondok Daun. Kelola pemasukan, pengeluaran, dan laporan keuangan secara terstruktur.",
+      "A finance tracking app for managing Pondok Daun's treasury. Manage income, expenses, and financial reports in an organized way.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://keuangan-pondok-daun.vercel.app",
@@ -120,7 +120,7 @@ export const projects: Project[] = [
   {
     judul: "Site Plan Website",
     deskripsi:
-      "Aplikasi perencanaan site plan berbasis web untuk memvisualisasikan dan mengelola tata letak lahan secara interaktif.",
+      "A web-based site planning app for visualizing and managing land layout interactively.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://site-plan-website.vercel.app",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
   {
     judul: "Pondok Daun Website",
     deskripsi:
-      "Website profil Pondok Daun yang menampilkan informasi kegiatan, fasilitas, dan kontak secara rapi dan modern.",
+      "A Pondok Daun profile website showcasing activities, facilities, and contact info neatly and modernly.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://pondok-daun-website.vercel.app",
@@ -138,7 +138,7 @@ export const projects: Project[] = [
   {
     judul: "Bangkiang Jaran Web",
     deskripsi:
-      "Website berbasis Laravel untuk pengelolaan konten dan layanan Bangkiang Jaran dengan panel admin.",
+      "A Laravel-based website for managing Bangkiang Jaran content and services with an admin panel.",
     tech: ["Laravel", "Blade", "PHP", "MySQL"],
     kategori: "web",
     demo: "",
@@ -147,16 +147,16 @@ export const projects: Project[] = [
   {
     judul: "Batik Mobile",
     deskripsi:
-      "Aplikasi mobile untuk memperkenalkan batik: katalog produk, detail motif, dan informasi budaya.",
+      "A mobile app introducing batik: product catalog, motif details, and cultural information.",
     tech: ["React Native", "JavaScript"],
     kategori: "mobile",
     demo: "",
     repo: "https://github.com/Yosuanry0812/batik-mobile-js",
   },
   {
-    judul: "Progress Akad Kredit",
+    judul: "Credit Agreement Progress",
     deskripsi:
-      "Aplikasi pelacak progres pengajuan akad kredit untuk memantau status dan dokumen dari awal hingga selesai.",
+      "A tracker for credit agreement applications to monitor status and documents from start to finish.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "",
@@ -171,42 +171,42 @@ export interface Experience {
   deskripsi: string;
 }
 
-// GANTI: isi dengan riwayat kerja/organisasi kamu
+// REPLACE: fill with your work/organization history
 export const experience: Experience[] = [
   {
-    periode: "Okt 2023 — Sekarang",
-    posisi: "Mahasiswa (Semester 7)",
+    periode: "Oct 2023 — Present",
+    posisi: "Student (Semester 7)",
     tempat: "INSTIKI",
-    deskripsi: "Menempuh pendidikan tinggi sambil aktif mengembangkan skill teknis dan organisasi.",
+    deskripsi: "Pursuing higher education while actively developing technical and organizational skills.",
   },
   {
-    periode: "Feb 2026 — Mei 2026",
-    posisi: "Magang (4 Bulan)",
+    periode: "Feb 2026 — May 2026",
+    posisi: "Internship (4 Months)",
     tempat: "NDS (New Directions Success) Guestlist",
-    deskripsi: "Magang selama 4 bulan di NDS Guestlist, belajar langsung di lingkungan kerja profesional.",
+    deskripsi: "Interned for 4 months at NDS Guestlist, learning directly in a professional work environment.",
   },
   {
-    periode: "Mei 2026 — Sekarang",
-    posisi: "Kerja Paruh Waktu",
+    periode: "May 2026 — Present",
+    posisi: "Part-Time Job",
     tempat: "NDS (New Direction Success) Guestlist",
-    deskripsi: "Lanjut sebagai pekerja paruh waktu di NDS Guestlist setelah masa magang selesai.",
+    deskripsi: "Continued as a part-time worker at NDS Guestlist after the internship ended.",
   },
   {
     periode: "2023 — 2024",
-    posisi: "Kepala Bidang PSDM",
+    posisi: "Head of PSDM Division",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Pengurus inti yang mengelola pengembangan sumber daya manusia di organisasi.",
+    deskripsi: "Core board member managing human resource development within the organization.",
   },
   {
     periode: "2024 — 2025",
-    posisi: "Wakil Ketua Umum",
+    posisi: "Vice Chairman",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Mendampingi ketua umum dalam memimpin dan mengkoordinasikan seluruh bidang organisasi.",
+    deskripsi: "Assisted the chairman in leading and coordinating all organizational divisions.",
   },
   {
     periode: "2025 — 2026",
-    posisi: "Ketua Umum",
+    posisi: "Chairman",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Memimpin FPK-KEMAHKRIS dan bertanggung jawab atas arah serta jalannya organisasi.",
+    deskripsi: "Led FPK-KEMAHKRIS and was responsible for the direction and operations of the organization.",
   },
 ];

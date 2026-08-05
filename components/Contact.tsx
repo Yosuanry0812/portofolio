@@ -39,7 +39,7 @@ export default function Contact() {
     const pesan = String(data.get("pesan") ?? "");
 
     const text = [
-      `Halo, saya ${nama}.`,
+      `Hello, I'm ${nama}.`,
       email ? `Email: ${email}` : "",
       "",
       pesan,
@@ -62,24 +62,24 @@ export default function Contact() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* clipboard tidak tersedia — abaikan */
+      /* clipboard unavailable — ignore */
     }
   };
 
   return (
-    <section id="kontak" className="container-x relative scroll-mt-24 overflow-hidden py-24">
-      {/* Glow dekoratif */}
+    <section id="contact" className="container-x relative scroll-mt-24 overflow-hidden py-24">
+      {/* Decorative glow */}
       <div className="pointer-events-none absolute -top-32 right-0 h-80 w-80 rounded-full bg-pink-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 left-0 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
 
       <SectionHeading
-        label="kontak.tsx"
-        judul="Mari Berkenalan"
-        deskripsi="Punya proyek, peluang kerja, atau sekadar ingin menyapa? Kirim pesan."
+        label="contact.tsx"
+        judul="Get In Touch"
+        deskripsi="Have a project, job opportunity, or just want to say hi? Send a message."
       />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-        {/* Kiri: kartu profil kontak */}
+        {/* Left: contact profile card */}
         <motion.div
           initial={{ opacity: 0, y: reduce ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/60 p-6 dark:border-line dark:bg-surface/60"
         >
-          {/* Garis atas ala terminal */}
+          {/* Terminal-style top line */}
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-pink-500 via-sky-500 to-pink-500" />
 
           <div className="flex items-center gap-2 font-mono text-xs text-slate-500 dark:text-slate-400">
@@ -96,13 +96,13 @@ export default function Contact() {
               <span className="h-2.5 w-2.5 rounded-full bg-yellow-500" />
               <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
             </span>
-            <span className="ml-2 truncate">yosuanry@devfolio: ~/kontak</span>
+            <span className="ml-2 truncate">yosuanry@devfolio: ~/contact</span>
           </div>
 
           <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
-            Jangan ragu,
+            Don't hesitate,
             <br />
-            <span className="text-gradient">sapa saya langsung.</span>
+            <span className="text-gradient">reach out directly.</span>
           </h3>
 
           <div className="mt-4 flex items-center gap-2 font-mono text-xs">
@@ -113,7 +113,7 @@ export default function Contact() {
             <span className="text-slate-500 dark:text-slate-400">// status: open to opportunities</span>
           </div>
 
-          {/* Email + tombol salin */}
+          {/* Email + copy button */}
           <button
             type="button"
             onClick={copyEmail}
@@ -125,7 +125,7 @@ export default function Contact() {
               </span>
               <span className="min-w-0 text-left">
                 <span className="block font-mono text-[11px] text-slate-500 dark:text-slate-400">
-                  klik untuk salin
+                  click to copy
                 </span>
                 <span className="block truncate font-mono text-sm font-medium text-slate-900 dark:text-white">
                   {profile.email}
@@ -140,7 +140,7 @@ export default function Contact() {
                     exit={{ opacity: 0, scale: 0.8 }}
                     className="flex shrink-0 items-center gap-1 rounded-lg bg-pink-500/10 px-3 py-1.5 text-xs font-medium text-pink-400"
                   >
-                    <Check size={14} /> Tersalin!
+                    <Check size={14} /> Copied!
                   </motion.span>
                 ) : (
                   <motion.span
@@ -157,7 +157,7 @@ export default function Contact() {
             </span>
           </button>
 
-          {/* Sosmed */}
+          {/* Socials */}
           <div className="mt-6 flex flex-col gap-2.5">
             {profile.socials.map((social, i) => {
               const Icon = socialIcons[social.nama] ?? ArrowUpRight;
@@ -188,7 +188,7 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        {/* Kanan: form */}
+        {/* Right: form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: reduce ? 0 : 20 }}
@@ -200,31 +200,31 @@ export default function Contact() {
           <div className="rounded-[15px] bg-white/80 p-6 backdrop-blur dark:bg-surface/80">
             <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
               <span className="text-pink-400">➜</span>{" "}
-              <span className="text-sky-400">~</span> buat pesan baru
+              <span className="text-sky-400">~</span> create new message
             </p>
 
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <label className="block">
                 <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  <span className="text-pink-400">$</span> nama_kamu
+                  <span className="text-pink-400">$</span> your_name
                 </span>
                 <input
                   name="nama"
                   type="text"
                   required
-                  placeholder="Nama lengkap"
+                  placeholder="Full name"
                   className={inputClass}
                 />
               </label>
               <label className="block">
                 <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  <span className="text-pink-400">$</span> email_kamu
+                  <span className="text-pink-400">$</span> your_email
                 </span>
                 <input
                   name="email"
                   type="email"
                   required
-                  placeholder="kamu@email.com"
+                  placeholder="you@email.com"
                   className={inputClass}
                 />
               </label>
@@ -232,13 +232,13 @@ export default function Contact() {
 
             <label className="mt-5 block">
               <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                <span className="text-pink-400">$</span> pesan_kamu
+                <span className="text-pink-400">$</span> your_message
               </span>
               <textarea
                 name="pesan"
                 required
                 rows={5}
-                placeholder="Tulis pesanmu di sini..."
+                placeholder="Write your message here..."
                 className={cn(inputClass, "resize-none")}
               />
             </label>
@@ -248,7 +248,7 @@ export default function Contact() {
               className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 to-sky-500 px-6 py-3.5 font-medium text-slate-900 shadow-lg shadow-pink-500/25 transition-all hover:shadow-pink-500/40 hover:brightness-110"
             >
               <MessageCircle size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              Kirim via WhatsApp
+              Send via WhatsApp
             </button>
 
             <AnimatePresence>
@@ -259,8 +259,8 @@ export default function Contact() {
                   exit={{ opacity: 0 }}
                   className="mt-4 rounded-xl border border-pink-500/40 bg-pink-500/10 px-4 py-3 font-mono text-sm text-pink-400"
                 >
-                  <span className="text-pink-400">✓</span> WhatsApp terbuka — tinggal tekan kirim
-                  di sana.
+                  <span className="text-pink-400">✓</span> WhatsApp opened — just hit send
+                  there.
                 </motion.p>
               ) : null}
             </AnimatePresence>

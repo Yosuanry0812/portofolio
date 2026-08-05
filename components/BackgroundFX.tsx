@@ -123,7 +123,7 @@ export default function BackgroundFX() {
         ctx.fillRect(cx - o.r, cy - o.r, o.r * 2, o.r * 2);
       }
 
-      // Bintang berkelip
+      // Twinkling stars
       for (const s of stars) {
         const a = s.base + Math.sin(t * s.speed + s.phase) * 0.12;
         if (a <= 0.02) continue;
@@ -157,7 +157,7 @@ export default function BackgroundFX() {
         ctx.moveTo(m.x, m.y);
         ctx.lineTo(tx, ty);
         ctx.stroke();
-        // titik kepala
+        // meteor head dot
         ctx.beginPath();
         ctx.arc(m.x, m.y, 1.6, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${a})`;

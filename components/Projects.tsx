@@ -7,15 +7,15 @@ import { projects, type ProjectCategory } from "@/data/profile";
 import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
 
-type Filter = "semua" | ProjectCategory;
+type Filter = "all" | ProjectCategory;
 
 const filters: { key: Filter; label: string }[] = [
-  { key: "semua", label: "semua" },
+  { key: "all", label: "all" },
   { key: "web", label: "web" },
   { key: "mobile", label: "mobile" },
 ];
 
-// Warna dot bahasa — lookup by tech pertama yang dikenali
+// Language dot colors — lookup by first recognized tech
 const langColors: { match: string; color: string }[] = [
   { match: "TypeScript", color: "#3178C6" },
   { match: "JavaScript", color: "#F7DF1E" },
@@ -37,11 +37,11 @@ function slugify(judul: string) {
 }
 
 export default function Projects() {
-  const [filter, setFilter] = useState<Filter>("semua");
+  const [filter, setFilter] = useState<Filter>("all");
   const reduce = useReducedMotion();
 
   const visible =
-    filter === "semua" ? projects : projects.filter((p) => p.kategori === filter);
+    filter === "all" ? projects : projects.filter((p) => p.kategori === filter);
 
   const handleMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -50,17 +50,17 @@ export default function Projects() {
   };
 
   return (
-    <section id="proyek" className="container-x scroll-mt-24 py-24">
+    <section id="projects" className="container-x scroll-mt-24 py-24">
       <SectionHeading
-        label="proyek.tsx"
-        judul="Proyek Pilihan"
-        deskripsi="Beberapa karya yang pernah saya kerjakan — filter sesuai kategori."
+        label="projects.tsx"
+        judul="Featured Projects"
+        deskripsi="Some of the work I've done — filter by category."
       />
 
-      {/* Bar filter ala command line */}
+      {/* Command-line style filter bar */}
       <div className="mb-10 flex flex-wrap items-center gap-2 overflow-hidden rounded-xl border border-slate-200 bg-white/60 font-mono text-sm dark:border-line dark:bg-surface/60">
         <span className="hidden px-4 py-3 text-slate-500 sm:block dark:text-slate-400">
-          <span className="text-pink-400">$</span> ls proyek --kategori=
+          <span className="text-pink-400">$</span> ls projects --category=
           <span className="text-purple-400">{filter}</span>
         </span>
         <div className="flex flex-1 flex-wrap gap-1 p-2 sm:justify-end">
@@ -101,7 +101,7 @@ export default function Projects() {
                 {/* Breadcrumb + index */}
                 <div className="flex items-center justify-between border-b border-slate-100 px-5 pt-4 pb-3 font-mono text-[11px] text-slate-400 dark:border-white/5 dark:text-slate-500">
                   <span className="truncate">
-                    <span className="text-sky-400">~/</span>proyek/
+                    <span className="text-sky-400">~/</span>projects/
                     <span className="text-slate-500 dark:text-slate-400">{slugify(project.judul)}.tsx</span>
                   </span>
                   <span className="shrink-0 text-pink-400/70">
@@ -109,7 +109,7 @@ export default function Projects() {
                   </span>
                 </div>
 
-                {/* Header kartu */}
+                {/* Card header */}
                 <div className="flex items-start justify-between px-5 pt-5">
                   <div className="flex items-center gap-3">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-pink-500/30 bg-pink-500/10 text-pink-400 transition-transform group-hover:scale-110">
@@ -139,7 +139,7 @@ export default function Projects() {
                   </span>
                 </div>
 
-                {/* Deskripsi */}
+                {/* Description */}
                 <p className="mt-4 flex-1 px-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                   {project.deskripsi}
                 </p>
@@ -156,7 +156,7 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* Footer aksi */}
+                {/* Action footer */}
                 <div className="mt-5 flex items-center justify-between border-t border-slate-100 px-5 py-3 dark:border-white/5">
                   <div className="flex gap-1">
                     {project.demo ? (
@@ -181,7 +181,7 @@ export default function Projects() {
                     </a>
                   </div>
                   <span className="font-mono text-[11px] text-slate-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-slate-500">
-                    ▹ buka
+                    ▹ open
                   </span>
                 </div>
               </motion.div>

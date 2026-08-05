@@ -8,15 +8,15 @@ export default function About() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="tentang" className="container-x scroll-mt-24 py-24">
+    <section id="about" className="container-x scroll-mt-24 py-24">
       <SectionHeading
-        label="tentang.ts"
-        judul="Tentang Saya"
-        deskripsi="Sekilas tentang siapa saya dan apa yang saya kerjakan."
+        label="about.ts"
+        judul="About Me"
+        deskripsi="A quick look at who I am and what I do."
       />
 
       <div className="grid items-start gap-8 lg:grid-cols-[300px_1fr]">
-        {/* Kartu profil ala terminal */}
+        {/* Terminal-style profile card */}
         <motion.div
           initial={{ opacity: 0, scale: reduce ? 1 : 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -38,7 +38,7 @@ export default function About() {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={profile.foto}
-                alt={`Foto ${profile.nama}`}
+                alt={`Photo of ${profile.nama}`}
                 className="mx-auto h-32 w-32 rounded-2xl border border-pink-500/30 object-cover shadow-lg"
               />
             ) : (
@@ -59,7 +59,7 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Sesi terminal */}
+        {/* Terminal session */}
         <motion.div
           initial={{ opacity: 0, y: reduce ? 0 : 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,9 +91,9 @@ export default function About() {
             </p>
             <p className="mb-4 whitespace-pre-line text-slate-600 dark:text-slate-300">{about.bio}</p>
 
-            {/* profil json */}
+            {/* profile json */}
             <p className="text-slate-500 dark:text-slate-400">
-              <span className="text-pink-400">➜</span> <span className="text-sky-400">~</span> cat profil.json
+              <span className="text-pink-400">➜</span> <span className="text-sky-400">~</span> cat profile.json
             </p>
             <pre className="mb-4 overflow-x-auto whitespace-pre text-slate-600 dark:text-slate-300">
               <span className="text-purple-400">{"{"}</span>
@@ -111,10 +111,10 @@ export default function About() {
             {/* status */}
             <p className="text-slate-500 dark:text-slate-400">
               <span className="text-pink-400">➜</span> <span className="text-sky-400">~</span>{" "}
-              ./cek-status --github=<span className="text-purple-400">{profile.githubUsername}</span>
+              ./check-status --github=<span className="text-purple-400">{profile.githubUsername}</span>
             </p>
             <p className="text-slate-600 dark:text-slate-300">
-              <span className="text-pink-400">✓</span> online — selalu belajar, selalu membangun
+              <span className="text-pink-400">✓</span> online — always learning, always building
               <span className="ml-1 inline-block h-4 w-2 animate-blink bg-pink-400 align-middle" />
             </p>
           </div>

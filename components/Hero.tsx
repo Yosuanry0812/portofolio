@@ -47,13 +47,13 @@ export default function Hero() {
   });
 
   return (
-    <section id="beranda" className="container-x relative flex min-h-screen items-center overflow-hidden pt-28 pb-20">
-      {/* Glow dekorasi */}
+    <section id="home" className="container-x relative flex min-h-screen items-center overflow-hidden pt-28 pb-20">
+      {/* Glow decoration */}
       <div className="pointer-events-none absolute -left-32 top-24 h-72 w-72 rounded-full bg-pink-500/20 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" />
 
       <div className="grid w-full items-center gap-12">
-        {/* Teks kiri */}
+        {/* Left text */}
         <div>
           <motion.p {...fadeUp(0)} className="mb-4 font-mono text-sm text-pink-400">
             <span className="text-sky-400">$</span> whoami
@@ -69,7 +69,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p {...fadeUp(0.2)} className="mt-5 h-8 font-mono text-lg text-slate-600 dark:text-slate-400">
-            <span className="text-purple-400">{"const"}</span> peran ={" "}
+            <span className="text-purple-400">{"const"}</span> role ={" "}
             <span className="text-pink-400">"{typed}"</span>
             <span className="ml-0.5 inline-block h-5 w-2.5 animate-blink bg-pink-400 align-middle" />
           </motion.p>
@@ -80,18 +80,18 @@ export default function Hero() {
 
           <motion.div {...fadeUp(0.4)} className="mt-9 flex flex-wrap items-center gap-4">
             <a
-              href="#proyek"
+              href="#projects"
               className="group inline-flex items-center gap-2 rounded-xl bg-pink-500 px-6 py-3 font-medium text-slate-900 shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:bg-pink-400"
             >
               <ArrowDown size={18} className="transition-transform group-hover:translate-y-0.5" />
-              Lihat Proyek
+              View Projects
             </a>
             <a
               href={profile.cvUrl}
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-all hover:-translate-y-0.5 hover:border-pink-500 hover:text-pink-500 dark:border-line dark:text-slate-300 dark:hover:border-pink-500 dark:hover:text-pink-400"
             >
               <FileDown size={18} />
-              Unduh CV
+              Download CV
             </a>
           </motion.div>
 

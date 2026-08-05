@@ -6,10 +6,10 @@ import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { label: "Tentang", href: "#tentang" },
-  { label: "Keahlian", href: "#keahlian" },
-  { label: "Proyek", href: "#proyek" },
-  { label: "Kontak", href: "#kontak" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -41,7 +41,7 @@ export default function Navbar() {
         )}
       >
         <nav className="container-x flex h-16 items-center justify-between">
-          <a href="#beranda" className="group font-mono text-lg font-bold text-slate-900 dark:text-white">
+          <a href="#home" className="group font-mono text-lg font-bold text-slate-900 dark:text-white">
             <span className="text-pink-400 group-hover:text-sky-400">&lt;</span>
             {profile.namaPanggilan.toLowerCase()}
             <span className="text-purple-400"> /&gt;</span>

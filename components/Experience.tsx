@@ -8,8 +8,8 @@ export default function Experience() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="pengalaman" className="container-x scroll-mt-24 py-24">
-      {/* Header Ala Screenshot */}
+    <section id="experience" className="container-x scroll-mt-24 py-24">
+      {/* Screenshot-style header */}
       <div className="mb-12 flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-emerald-400">
         <Calendar size={16} className="text-emerald-400" />
         <span>trajectory timeline</span>
@@ -62,8 +62,6 @@ export default function Experience() {
             );
           })}
         </div>
-
-        {/* Scroll indicator for mobile/desktop */}
         <div className="mt-4 flex justify-center font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-600 animate-pulse">
           <span>&lt; scroll &gt;</span>
         </div>

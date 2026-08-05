@@ -34,7 +34,7 @@
 }
 
 @layer components {
-  /* Kartu dengan sorot cahaya mengikuti kursor (pakai CSS vars --mx / --my) */
+  /* Card with cursor-following light highlight (uses CSS vars --mx / --my) */
   .card-spotlight {
     @apply relative overflow-hidden;
   }

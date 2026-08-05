@@ -20,7 +20,7 @@ export default function Home() {
       <BackgroundFX />
       <Snow />
       <CursorTrail />
-      <main id="konten">
+      <main id="main">
         <Hero />
         <TechMarquee />
         <About />
