@@ -91,22 +91,9 @@ export const skills = [
   },
 ];
 
-export const techMarquee = [
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Tailwind CSS",
-  "Node.js",
-  "Express",
-  "Flutter",
-  "Dart",
-  "MySQL",
-  "Prisma",
-  "Git",
-  "Docker",
-  "Figma",
-  "Vercel",
-];
+// Stack yang dikuasai — diambil otomatis dari semua kategori skill.
+// Pindah ke /data/skills-ikon.ts bila mau tambah ikon/logo per tech.
+export const techMarquee = skills.flatMap((s) => s.items);
 
 export type ProjectCategory = "web" | "mobile";
 

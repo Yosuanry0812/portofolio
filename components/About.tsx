@@ -34,9 +34,18 @@ export default function About() {
           </div>
 
           <div className="p-6">
-            <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-2xl border border-pink-500/30 bg-gradient-to-br from-pink-500/15 via-sky-500/15 to-purple-500/15">
-              <span className="font-mono text-5xl font-bold text-gradient">{about.inisial}</span>
-            </div>
+            {profile.foto ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={profile.foto}
+                alt={`Foto ${profile.nama}`}
+                className="mx-auto h-32 w-32 rounded-2xl border border-pink-500/30 object-cover shadow-lg"
+              />
+            ) : (
+              <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-2xl border border-pink-500/30 bg-gradient-to-br from-pink-500/15 via-sky-500/15 to-purple-500/15">
+                <span className="font-mono text-5xl font-bold text-gradient">{about.inisial}</span>
+              </div>
+            )}
             <p className="mt-5 text-center font-mono text-sm text-slate-900 dark:text-white">
               {profile.nama}
             </p>

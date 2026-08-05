@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, FileDown, Sparkles } from "lucide-react";
-import { profile, typingRoles, about } from "@/data/profile";
+import { ArrowDown, Cpu, FileDown, Sparkles } from "lucide-react";
+import { profile, typingRoles, terminalData } from "@/data/profile";
+import { cn } from "@/lib/utils";
 
 function useTypewriter(words: string[]) {
   const [index, setIndex] = useState(0);
@@ -36,6 +37,12 @@ function useTypewriter(words: string[]) {
   return text;
 }
 
+const tokenColors: Record<string, string> = {
+  string: "text-pink-400",
+  array: "text-sky-400",
+  boolean: "text-yellow-400",
+};
+
 export default function Hero() {
   const typed = useTypewriter(typingRoles);
   const reduce = useReducedMotion();
@@ -47,8 +54,12 @@ export default function Hero() {
   });
 
   return (
-    <section id="beranda" className="container-x flex min-h-screen items-center pt-28 pb-20">
-      <div className="grid w-full items-center gap-12 lg:grid-cols-2">
+    <section id="beranda" className="container-x relative flex min-h-screen items-center overflow-hidden pt-28 pb-20">
+      {/* Glow dekorasi */}
+      <div className="pointer-events-none absolute -left-32 top-24 h-72 w-72 rounded-full bg-pink-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" />
+
+      <div className="grid w-full items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
         {/* Teks kiri */}
         <div>
           <motion.p {...fadeUp(0)} className="mb-4 font-mono text-sm text-pink-400">
@@ -105,36 +116,49 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Foto diri */}
+        {/* Terminal kanan */}
         <motion.div
-          initial={{ opacity: 0, scale: reduce ? 1 : 0.95, y: reduce ? 0 : 16 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="mx-auto w-full max-w-md"
+          initial={{ opacity: 0, x: reduce ? 0 : 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+          className="w-full"
         >
-          <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-pink-500/5 transition-transform duration-300 hover:-translate-y-1 dark:border-line dark:bg-surface">
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-sky-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            {profile.foto ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={profile.foto}
-                alt={`Foto ${profile.nama}`}
-                className="aspect-square w-full object-cover"
-              />
-            ) : (
-              <div className="flex aspect-square w-full flex-col items-center justify-center gap-4">
-                <div className="flex h-28 w-28 items-center justify-center rounded-2xl border-2 border-dashed border-pink-400/40 text-4xl font-bold text-pink-400/60">
-                  {about.inisial}
-                </div>
-                <p className="px-6 text-center font-mono text-xs text-slate-500 dark:text-slate-400">
-                  Taruh foto di <span className="text-pink-400">/public/foto.jpg</span>
-                  <br />
-                  lalu isi <span className="text-sky-400">profile.foto</span> di data/profile.ts
-                </p>
-              </div>
-            )}
-            <div className="absolute inset-x-0 bottom-0 border-t border-slate-200 bg-white/60 px-4 py-2.5 font-mono text-xs text-slate-500 dark:border-line dark:bg-slate-900/60 dark:text-slate-400">
-              <span className="text-pink-400">$</span> whoami — {profile.nama}
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-pink-500/10 dark:border-line dark:bg-surface">
+            {/* Header terminal */}
+            <div className="flex items-center gap-2 border-b border-slate-200 bg-white/60 px-4 py-3 dark:border-line dark:bg-slate-900/60">
+              <span className="h-3 w-3 rounded-full bg-pink-500" />
+              <span className="h-3 w-3 rounded-full bg-yellow-500" />
+              <span className="h-3 w-3 rounded-full bg-sky-500" />
+              <span className="ml-3 flex items-center gap-1.5 font-mono text-xs text-slate-500 dark:text-slate-400">
+                <Cpu size={12} className="text-pink-400" />
+                yosuanry@devfolio: ~
+              </span>
+            </div>
+
+            <div className="space-y-1 p-5 font-mono text-sm sm:p-6">
+              <p className="text-slate-500 dark:text-slate-500">
+                <span className="text-pink-400">➜</span> <span className="text-sky-400">~</span> cat stack.ts
+              </p>
+              <p className="mb-3 text-slate-500 dark:text-slate-500">{"// profile.dev"}</p>
+
+              <pre className="overflow-x-auto whitespace-pre text-slate-300">
+                <span className="text-purple-400">{"{"}</span>
+                {terminalData.map((item) => (
+                  <span key={item.key} className="block pl-4">
+                    <span className="text-sky-400">"{item.key}"</span>
+                    <span className="text-slate-500">: </span>
+                    <span className={cn(tokenColors[item.type] ?? "text-emerald-400")}>{item.value}</span>
+                    <span className="text-slate-500">,</span>
+                  </span>
+                ))}
+                <span className="text-purple-400">{"}"}</span>
+              </pre>
+
+              {/* Status bar */}
+              <p className="mt-3 flex items-center gap-2 text-slate-500 dark:text-slate-500">
+                <span className="h-2 w-2 animate-pulse-dot rounded-full bg-emerald-400" />
+                build finished · 100% ready
+              </p>
             </div>
           </div>
         </motion.div>
