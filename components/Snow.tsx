@@ -17,6 +17,8 @@ export default function Snow() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
   const { theme } = useTheme();
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
 
   useEffect(() => {
     if (reduce) return;
@@ -31,6 +33,7 @@ export default function Snow() {
     let last = 0;
     let w = 0;
     let h = 0;
+    let blend = themeRef.current === "dark" ? 0 : 1;
 
     const resize = () => {
       // ponytail: DPR locked to 1 — soft dots need no retina sharpness, halves fill cost on mobile.
@@ -50,25 +53,32 @@ export default function Snow() {
       }));
     };
 
-    let scrolling = false;
-    let scrollTimer = 0;
-    const onScrollPause = () => {
-      scrolling = true;
-      window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(() => {
-        scrolling = false;
-      }, 180);
+    // scroll wind — scroll cepat tiup salju miring, lalu reda sendiri
+    let wind = 0;
+    let lastSY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      wind += (y - lastSY) * 0.015;
+      lastSY = y;
     };
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (document.hidden || scrolling) return;
+      if (document.hidden) return;
       if (now - last < 33) return; // ~30fps — snow drift invisible above this
       last = now;
+      wind *= 0.94;
+      const target = themeRef.current === "dark" ? 0 : 1;
+      blend += (target - blend) * 0.06;
+      if (Math.abs(target - blend) < 0.001) blend = target;
+      // white (dark) -> slate (light), eased
+      const r = Math.round(255 + (100 - 255) * blend);
+      const g = Math.round(255 + (116 - 255) * blend);
+      const b = Math.round(255 + (139 - 255) * blend);
       ctx.clearRect(0, 0, w, h);
       for (const f of flakes) {
         f.y += f.speed * 2; // compensate 30fps step
-        f.x += f.drift * 2 + Math.sin(f.y * 0.01 + f.r) * 0.6;
+        f.x += f.drift * 2 + Math.sin(f.y * 0.01 + f.r) * 0.6 - wind;
         if (f.y > h + 4) {
           f.y = -4;
           f.x = Math.random() * w;
@@ -77,11 +87,7 @@ export default function Snow() {
         if (f.x < -4) f.x = w + 4;
         ctx.beginPath();
         ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        // ponytail: white flakes vanish on light bg — slate flakes stay visible in light mode.
-        ctx.fillStyle =
-          theme === "dark"
-            ? `rgba(255,255,255,${f.opacity})`
-            : `rgba(100,116,139,${f.opacity})`;
+        ctx.fillStyle = `rgba(${r},${g},${b},${f.opacity})`;
         ctx.fill();
       }
     };
@@ -89,15 +95,14 @@ export default function Snow() {
     resize();
     raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
-    window.addEventListener("scroll", onScrollPause, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", onScrollPause);
-      window.clearTimeout(scrollTimer);
+      window.removeEventListener("scroll", onScroll);
     };
-  }, [reduce, theme]);
+  }, [reduce]);
 
   return (
     <canvas

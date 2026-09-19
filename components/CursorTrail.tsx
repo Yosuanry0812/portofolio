@@ -19,6 +19,8 @@ export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
   const { theme } = useTheme();
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
 
   useEffect(() => {
     if (reduce) return;
@@ -42,6 +44,7 @@ export default function CursorTrail() {
     let active = false;
     let lastEmit = 0;
     let last = 0;
+    let blend = themeRef.current === "dark" ? 0 : 1;
 
     const resize = () => {
       w = canvas.width = window.innerWidth;
@@ -78,21 +81,18 @@ export default function CursorTrail() {
       active = false;
     };
 
-    let scrolling = false;
-    let scrollTimer = 0;
-    const onScrollPause = () => {
-      scrolling = true;
-      window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(() => {
-        scrolling = false;
-      }, 180);
-    };
-
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (document.hidden || scrolling) return;
+      if (document.hidden) return;
       if (now - last < 33) return; // ~30fps — particle fade invisible above this
       last = now;
+      const target = themeRef.current === "dark" ? 0 : 1;
+      blend += (target - blend) * 0.06;
+      if (Math.abs(target - blend) < 0.001) blend = target;
+      // white (dark) -> cyan-600 (light), eased
+      const cr = Math.round(255 + (8 - 255) * blend);
+      const cg = Math.round(255 + (145 - 255) * blend);
+      const cb = Math.round(255 + (178 - 255) * blend);
       if (active) {
         const k = 0.16;
         cx += (tx - cx) * k;
@@ -121,10 +121,7 @@ export default function CursorTrail() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r * (1 - t * 0.6), 0, Math.PI * 2);
         // ponytail: white glow invisible on light bg — cyan trail reads on both modes.
-        ctx.fillStyle =
-          theme === "dark"
-            ? `rgba(255,255,255,${alpha})`
-            : `rgba(8,145,178,${alpha})`;
+        ctx.fillStyle = `rgba(${cr},${cg},${cb},${alpha})`;
         ctx.fill();
       }
       // Sleep loop when idle — zero cost while user isn't moving the cursor.
@@ -143,19 +140,16 @@ export default function CursorTrail() {
     resize();
     raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
-    window.addEventListener("scroll", onScrollPause, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", onScrollPause);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
-      window.clearTimeout(scrollTimer);
     };
-  }, [reduce, theme]);
+  }, [reduce]);
 
   return (
     <canvas

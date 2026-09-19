@@ -14,15 +14,15 @@ interface Star {
 }
 
 interface Orb {
-  x: number; // center px
+  x: number;
   y: number;
   r: number;
-  dx: number; // drift amplitude
+  dx: number;
   dy: number;
-  sx: number; // drift speed
+  sx: number;
   sy: number;
   ph: number;
-  color: string;
+  pi: number;
 }
 
 interface Meteor {
@@ -35,26 +35,42 @@ interface Meteor {
   maxLife: number;
 }
 
-const ORB_COLORS_DARK = [
-  "244, 114, 182, 0.10",
-  "56, 189, 248, 0.08",
-  "192, 132, 252, 0.10",
-  "250, 204, 21, 0.08",
+type RGBA = [number, number, number, number];
+
+const ORB_DARK: RGBA[] = [
+  [244, 114, 182, 0.1],
+  [56, 189, 248, 0.08],
+  [192, 132, 252, 0.1],
+  [250, 204, 21, 0.08],
 ];
 
 // ponytail: dark orbs vanish on white — saturated light-mode set keeps aurora visible.
-const ORB_COLORS_LIGHT = [
-  "244, 114, 182, 0.20",
-  "14, 165, 233, 0.18",
-  "168, 85, 247, 0.20",
-  "234, 179, 8, 0.18",
+const ORB_LIGHT: RGBA[] = [
+  [244, 114, 182, 0.2],
+  [14, 165, 233, 0.18],
+  [168, 85, 247, 0.2],
+  [234, 179, 8, 0.18],
 ];
+
+const STAR_DARK: RGBA = [255, 255, 255, 1];
+const STAR_LIGHT: RGBA = [71, 85, 105, 1];
+const METEOR_DARK: RGBA = [255, 255, 255, 1];
+const METEOR_LIGHT: RGBA = [14, 165, 233, 1];
+
+const mix = (d: RGBA, l: RGBA, k: number, a: number) => {
+  const r = Math.round(d[0] + (l[0] - d[0]) * k);
+  const g = Math.round(d[1] + (l[1] - d[1]) * k);
+  const b = Math.round(d[2] + (l[2] - d[2]) * k);
+  const al = (d[3] + (l[3] - d[3]) * k) * a;
+  return `rgba(${r},${g},${b},${al})`;
+};
 
 export default function BackgroundFX() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
   const { theme } = useTheme();
-  const dark = theme === "dark";
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
 
   useEffect(() => {
     if (reduce) return;
@@ -73,6 +89,7 @@ export default function BackgroundFX() {
     let raf = 0;
     let nextMeteor = 0;
     let last = 0;
+    let blend = themeRef.current === "dark" ? 0 : 1;
     const t0 = performance.now();
     const small = () => w < 768;
 
@@ -93,6 +110,15 @@ export default function BackgroundFX() {
       nextMeteor = now + (Math.random() * 4000 + 6000);
     };
 
+    const layout = () => {
+      orbs = [
+        { x: w * 0.12, y: h * 0.2, r: Math.min(w, h) * 0.55, dx: 60, dy: 30, sx: 0.12, sy: 0.09, ph: 0, pi: 0 },
+        { x: w * 0.85, y: h * 0.25, r: Math.min(w, h) * 0.5, dx: 70, dy: 40, sx: 0.1, sy: 0.13, ph: 2.1, pi: 1 },
+        { x: w * 0.75, y: h * 0.85, r: Math.min(w, h) * 0.6, dx: 80, dy: 50, sx: 0.13, sy: 0.1, ph: 4.2, pi: 2 },
+        { x: w * 0.2, y: h * 0.9, r: Math.min(w, h) * 0.5, dx: 50, dy: 60, sx: 0.09, sy: 0.12, ph: 5.5, pi: 3 },
+      ];
+    };
+
     const resize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
@@ -102,14 +128,7 @@ export default function BackgroundFX() {
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const palette = dark ? ORB_COLORS_DARK : ORB_COLORS_LIGHT;
-      orbs = [
-        { x: w * 0.12, y: h * 0.2, r: Math.min(w, h) * 0.55, dx: 60, dy: 30, sx: 0.12, sy: 0.09, ph: 0, color: palette[0] },
-        { x: w * 0.85, y: h * 0.25, r: Math.min(w, h) * 0.5, dx: 70, dy: 40, sx: 0.1, sy: 0.13, ph: 2.1, color: palette[1] },
-        { x: w * 0.75, y: h * 0.85, r: Math.min(w, h) * 0.6, dx: 80, dy: 50, sx: 0.13, sy: 0.1, ph: 4.2, color: palette[2] },
-        { x: w * 0.2, y: h * 0.9, r: Math.min(w, h) * 0.5, dx: 50, dy: 60, sx: 0.09, sy: 0.12, ph: 5.5, color: palette[3] },
-      ];
+      layout();
 
       const count = small()
         ? Math.min(60, Math.max(25, Math.floor((w * h) / 28000)))
@@ -124,31 +143,33 @@ export default function BackgroundFX() {
       }));
     };
 
-    // ponytail: freeze loop while scrolling — canvas CPU raster was stealing frames from 90-120Hz scroll.
-    let scrolling = false;
-    let scrollTimer = 0;
-    const onScrollPause = () => {
-      scrolling = true;
-      window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(() => {
-        scrolling = false;
-      }, 180);
+    // scroll parallax — background scores depth while scrolling, cheap lerp
+    let targetScroll = 0;
+    let smoothScroll = 0;
+    const onScroll = () => {
+      targetScroll = window.scrollY;
     };
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (document.hidden || scrolling) return;
+      if (document.hidden) return;
       if (now - last < 33) return; // ~30fps — fullscreen gradients cost GPU per frame
       last = now;
+      smoothScroll += (targetScroll - smoothScroll) * 0.08;
+      // canvas color blend eases toward theme — no remount flash
+      const target = themeRef.current === "dark" ? 0 : 1;
+      blend += (target - blend) * 0.06;
+      if (Math.abs(target - blend) < 0.001) blend = target;
       const t = (now - t0) / 1000;
       ctx.clearRect(0, 0, w, h);
 
-      // Aurora orbs
+      // Aurora orbs — layer lambat (parallax 0.06)
       for (const o of orbs) {
         const cx = o.x + Math.sin(t * o.sx + o.ph) * o.dx;
-        const cy = o.y + Math.cos(t * o.sy + o.ph) * o.dy;
+        const rawY = o.y + Math.cos(t * o.sy + o.ph) * o.dy - smoothScroll * 0.06;
+        const cy = ((rawY % (h + o.r * 2)) + h + o.r * 2) % (h + o.r * 2) - o.r;
         const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, o.r);
-        g.addColorStop(0, `rgba(${o.color})`);
+        g.addColorStop(0, mix(ORB_DARK[o.pi], ORB_LIGHT[o.pi], blend, 1));
         g.addColorStop(1, "rgba(0,0,0,0)");
         ctx.fillStyle = g;
         ctx.fillRect(cx - o.r, cy - o.r, o.r * 2, o.r * 2);
@@ -162,7 +183,7 @@ export default function BackgroundFX() {
         if (a <= 0.02) continue;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = dark ? `rgba(255,255,255,${a})` : `rgba(71,85,105,${a + 0.15})`;
+        ctx.fillStyle = mix(STAR_DARK, STAR_LIGHT, blend, a + blend * 0.15);
         ctx.fill();
       }
 
@@ -180,9 +201,10 @@ export default function BackgroundFX() {
         const a = 1 - m.life / m.maxLife;
         const tx = m.x - m.vx * m.len;
         const ty = m.y - m.vy * m.len;
+        const head = mix(METEOR_DARK, METEOR_LIGHT, blend, a * 0.9);
         const g = ctx.createLinearGradient(m.x, m.y, tx, ty);
-        g.addColorStop(0, dark ? `rgba(255,255,255,${a * 0.9})` : `rgba(14,165,233,${a * 0.85})`);
-        g.addColorStop(1, dark ? "rgba(255,255,255,0)" : "rgba(14,165,233,0)");
+        g.addColorStop(0, head);
+        g.addColorStop(1, mix(METEOR_DARK, METEOR_LIGHT, blend, 0));
         ctx.strokeStyle = g;
         ctx.lineWidth = 2;
         ctx.lineCap = "round";
@@ -192,7 +214,7 @@ export default function BackgroundFX() {
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(m.x, m.y, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = dark ? `rgba(255,255,255,${a})` : `rgba(14,165,233,${a})`;
+        ctx.fillStyle = mix(METEOR_DARK, METEOR_LIGHT, blend, a);
         ctx.fill();
       }
     };
@@ -200,15 +222,14 @@ export default function BackgroundFX() {
     resize();
     raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
-    window.addEventListener("scroll", onScrollPause, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", onScrollPause);
-      window.clearTimeout(scrollTimer);
+      window.removeEventListener("scroll", onScroll);
     };
-  }, [reduce, dark]);
+  }, [reduce]);
 
   return (
     <canvas

@@ -80,10 +80,13 @@ export default function Navbar() {
         )}
       >
         <nav className="container-x flex h-16 items-center justify-between">
-          <a href="#home" className="group font-mono text-lg font-bold text-slate-900 dark:text-white">
-            <span className="text-cyan-400 group-hover:text-sky-400">&lt;</span>
-            {profile.namaPanggilan.toLowerCase()}
-            <span className="text-purple-400"> /&gt;</span>
+          <a href="#home" className="group relative font-mono text-lg font-bold tracking-tight text-slate-900 dark:text-white">
+            <span className="logo-glow">
+              <span className="bg-gradient-to-r from-cyan-400 to-sky-500 bg-clip-text text-transparent">&lt;</span>
+              <span className="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-white dark:to-slate-300">{profile.namaPanggilan.toLowerCase()}</span>
+              <span className="bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent"> /&gt;</span>
+            </span>
+            <span className="logo-underline" aria-hidden="true" />
           </a>
 
           <ul className="hidden items-center gap-1 md:flex">

@@ -13,12 +13,14 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={(e) => toggle(e.clientX, e.clientY)}
       aria-label={theme === "dark" ? t("theme.toLight") : t("theme.toDark")}
       title={theme === "dark" ? t("theme.light") : t("theme.dark")}
       className={btn}
     >
-      {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+      <span key={theme} className="animate-theme-pop block">
+        {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+      </span>
     </button>
   );
 }

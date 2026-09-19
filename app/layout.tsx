@@ -12,8 +12,8 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
   title: {
-    default: `${profile.nama} — ${profile.peran}`,
-    template: `%s — ${profile.nama}`,
+    default: `Portofolio ${profile.nama}`,
+    template: `%s — Portofolio ${profile.nama}`,
   },
   description: profile.tagline,
   keywords: [
@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: profile.siteUrl,
-    siteName: profile.nama,
-    title: `${profile.nama} — ${profile.peran}`,
+    siteName: `Portofolio ${profile.nama}`,
+    title: `Portofolio ${profile.nama}`,
     description: profile.tagline,
     images: [{ url: profile.foto, width: 1200, height: 630, alt: profile.nama }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.nama} — ${profile.peran}`,
+    title: `Portofolio ${profile.nama}`,
     description: profile.tagline,
     images: [profile.foto],
   },

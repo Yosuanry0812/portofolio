@@ -8,10 +8,69 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-700 antialiased transition-colors duration-300 dark:bg-bg dark:text-slate-300;
+    @apply bg-slate-50 text-slate-700 antialiased transition-colors duration-500 dark:bg-bg dark:text-slate-300;
     background-image: linear-gradient(to right, rgb(148 163 184 / 0.07) 1px, transparent 1px),
       linear-gradient(to bottom, rgb(148 163 184 / 0.07) 1px, transparent 1px);
     background-size: 56px 56px;
+  }
+
+  /* Theme swap easing — every surface fades instead of snapping */
+  html.theming *,
+  html.theming *::before,
+  html.theming *::after {
+    transition: background-color 0.6s ease, color 0.6s ease,
+      border-color 0.6s ease, fill 0.6s ease, stroke 0.6s ease !important;
+  }
+
+  /* Circular reveal from toggle click (coords in --tx / --ty) */
+  ::view-transition-old(root) {
+    animation: none;
+  }
+  ::view-transition-new(root) {
+    animation: circle-in 0.65s ease;
+  }
+  @keyframes circle-in {
+    from {
+      clip-path: circle(0 at var(--tx, 50vw) var(--ty, 0px));
+    }
+    to {
+      clip-path: circle(150vmax at var(--tx, 50vw) var(--ty, 0px));
+    }
+  }
+
+  /* Theme icon pop */
+  @keyframes theme-pop {
+    from {
+      transform: rotate(-90deg) scale(0.6);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(0) scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-theme-pop {
+    animation: theme-pop 0.45s ease;
+  }
+
+  /* Navbar logo: gradient underline sweep + glow */
+  .logo-glow {
+    filter: drop-shadow(0 0 12px rgb(34 211 238 / 0.25));
+  }
+  .logo-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #22d3ee, #818cf8, #e879f9);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  a:hover .logo-underline {
+    transform: scaleX(1);
   }
 
   /* Skip rendering offscreen sections — browser skips layout/paint until near viewport */

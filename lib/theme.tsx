@@ -1,10 +1,11 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 
 export type Theme = "dark" | "light";
 
-const ThemeContext = createContext<{ theme: Theme; toggle: () => void } | null>(null);
+const ThemeContext = createContext<{ theme: Theme; toggle: (x?: number, y?: number) => void } | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
@@ -29,8 +30,28 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     meta.setAttribute("content", theme === "dark" ? "#0B0F17" : "#f8fafc");
   }, [theme]);
 
+  const toggle = (x?: number, y?: number) => {
+    const next = theme === "dark" ? "light" : "dark";
+    const root = document.documentElement;
+    // global color easing so every surface fades instead of snapping
+    root.classList.add("theming");
+    window.setTimeout(() => root.classList.remove("theming"), 650);
+    const apply = () => {
+      flushSync(() => setTheme(next));
+    };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const vt = (document as Document & { startViewTransition?: (cb: () => void) => void }).startViewTransition;
+    if (x !== undefined && y !== undefined && vt && !reduce) {
+      root.style.setProperty("--tx", `${x}px`);
+      root.style.setProperty("--ty", `${y}px`);
+      vt.call(document, apply);
+    } else {
+      apply();
+    }
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, toggle: () => setTheme((t) => (t === "dark" ? "light" : "dark")) }}>
+    <ThemeContext.Provider value={{ theme, toggle }}>
       {children}
     </ThemeContext.Provider>
   );
