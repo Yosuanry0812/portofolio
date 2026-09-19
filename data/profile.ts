@@ -5,19 +5,24 @@ export const profile = {
   tagline: "I build fast, beautiful, and scalable web apps.",
   githubUsername: "Yosuanry0812",
 
-  // REPLACE: your email address
+  // Email tetap pakai Drive (HR bisa copy/manual)
   email: "yosuanry66@gmail.com",
 
-  // WhatsApp (number without +62 — use 628... format)
+  // WhatsApp (format 628...)
   whatsapp: "6281268247843",
 
-  // CV tersimpan di Google Drive — dibuka di tab baru
-  cvUrl:
-    "https://drive.google.com/drive/folders/1Ho62qcsnESOJzaN78dd4PT_avlJVNgW4?usp=drive_link",
+  // Alamat + target kerja
+  location: "Bali, Indonesia",
+  availability: "Full-time / Hybrid (Remote/Onsite)",
+  workType: "Fullstack Developer (JavaScript/TypeScript ecosystem)",
+
+  // CV static — letakkan file cv-yosuanry.pdf di folder public/
+  // lalu panggil dari Navbar/footer: <a href="/cv-yosuanry.pdf" download>Download CV</a>
+  cvUrl: "/cv-yosuanry.pdf",
 
   siteUrl: "https://portofolio-yosuanry-simbolon.vercel.app",
 
-  // REPLACE: put your photo in /public/foto.jpg then fill "/foto.jpg" (leave empty for placeholder)
+  // REPLACE: letak foto di /public/foto.jpg (opsional)
   foto: "/Yosua_foto.jpg",
 
   socials: [
@@ -30,12 +35,12 @@ export const profile = {
 
 export const about = {
   // REPLACE: write a short bio about yourself
-  bio: "Hi, I'm Yosuanry Simbolon a developer who loves turning ideas into digital products people genuinely enjoy using. I obsess over sharp frontends, clean backends, and the small details that make an experience feel premium.",
+  bio: "Hi, I'm Yosuanry Simbolon a Full-Stack Developer based in Bali, Indonesia. I love turning ideas into digital products people genuinely enjoy using. I obsess over sharp frontends, clean backends, and the small details that make an experience feel premium. Sedia bekerja Remote atau Onsite.",
   info: [
-    { label: "Location", value: "Indonesia" },
+    { label: "Lokasi", value: "Bali, Indonesia" },
     { label: "Status", value: "Open to Opportunities" },
     { label: "Languages", value: "Indonesian, English" },
-    { label: "Interests", value: "Web, Mobile, UI/UX" },
+    { label: "Work Type", value: "Fullstack Developer (JavaScript/TypeScript ecosystem)" },
   ],
   // REPLACE: initials for the avatar placeholder
   inisial: "YS",
@@ -61,11 +66,6 @@ export const skills = [
     grup: "Cloud & DevOps",
     deskripsi: "Deployment, infrastructure, and automation",
     items: ["Docker", "Cloudflare", "Vercel"],
-  },
-  {
-    grup: "AI & Automation",
-    deskripsi: "AI tools that boost developer productivity",
-    items: ["DeepSeek", "Claude Code", "OpenCode", "9Router", "GitHub", "ClickUp"],
   },
 ];
 
