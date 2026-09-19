@@ -32,7 +32,7 @@ const dict: Record<Lang, Dict> = {
     "skills.title": "Tech Stack & Skills",
     "skills.desc": "Technologies I use to turn ideas into products.",
     "activity.title": "GitHub Activity",
-    "activity.desc": "Consistent commits — a habit of shipping and learning in public.",
+    "activity.desc": "Consistent commits a habit of shipping and learning in public.",
     "activity.last": "last 12 months",
     "activity.error":
       "Could not load contributions — check connection, then visit the GitHub profile.",
@@ -40,7 +40,7 @@ const dict: Record<Lang, Dict> = {
     "activity.legendLess": "Less",
     "activity.legendMore": "More",
     "projects.title": "Featured Projects",
-    "projects.desc": "A few things I've built — filter by category.",
+    "projects.desc": "A few things I've built filter by category.",
     "projects.featured": "featured project",
     "projects.deployed": "deployed",
     "projects.repoOnly": "repo-only",
@@ -178,12 +178,12 @@ const dict: Record<Lang, Dict> = {
       "Aplikasi web interaktif untuk memvisualisasikan dan merencanakan tata letak lahan.",
     "Modern profile site for Pondok Daun, presenting activities, facilities, and contact info in a clean layout.":
       "Situs profil modern untuk Pondok Daun yang menampilkan kegiatan, fasilitas, dan info kontak dalam tata letak bersih.",
-    "Laravel-powered site for Bangkiang Jaran with content management and a full admin panel.":
+    "Laravelpowered site for Bangkiang Jaran with content management and a full admin panel.":
       "Situs Laravel untuk Bangkiang Jaran dengan manajemen konten dan panel admin lengkap.",
     "Mobile app that showcases Indonesian batik catalog, motif details, and cultural context.":
       "Aplikasi mobile yang menampilkan katalog batik Indonesia, detail motif, dan konteks budaya.",
-    "End-to-end tracker for credit agreement applications status, documents, and progress at a glance.":
-      "Pelacak status pengajuan akad kredit secara end-to-end — dokumen dan progres sekilas.",
+    "End to end tracker for credit agreement applications status, documents, and progress at a glance.":
+      "Pelacak status pengajuan akad kredit secara end to end  dokumen dan progres sekilas.",
     "Oct 2023 — Present": "Okt 2023 — Sekarang",
     "Feb 2026 — May 2026": "Feb 2026 — Mei 2026",
     "May 2026 — Present": "Mei 2026 — Sekarang",

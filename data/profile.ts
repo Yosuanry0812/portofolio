@@ -124,7 +124,7 @@ export const projects: Project[] = [
   {
     judul: "Bangkiang Jaran Web",
     deskripsi:
-      "Laravel-powered site for Bangkiang Jaran with content management and a full admin panel.",
+      "Laravel powered site for Bangkiang Jaran with content management and a full admin panel.",
     tech: ["Laravel", "Blade", "PHP", "MySQL"],
     kategori: "web",
     demo: "",
@@ -142,7 +142,7 @@ export const projects: Project[] = [
   {
     judul: "Credit Agreement Progress",
     deskripsi:
-      "End-to-end tracker for credit agreement applications status, documents, and progress at a glance.",
+      "End to end tracker for credit agreement applications status, documents, and progress at a glance.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "",
