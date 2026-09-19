@@ -80,12 +80,11 @@ export default function Navbar() {
         )}
       >
         <nav className="container-x flex h-16 items-center justify-between">
-          <a href="#home" className="group relative font-mono text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-            <span className="logo-glow">
-              <span className="bg-gradient-to-r from-cyan-400 to-sky-500 bg-clip-text text-transparent">&lt;</span>
-              <span className="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-white dark:to-slate-300">{profile.namaPanggilan.toLowerCase()}</span>
-              <span className="bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent"> /&gt;</span>
-            </span>
+          <a href="#home" aria-label="Yosua — beranda" className="group relative flex items-baseline font-mono text-lg font-bold tracking-tight">
+            <span className="text-cyan-500 transition-transform duration-300 group-hover:-translate-x-0.5 dark:text-cyan-400">&lt;</span>
+            <span className="mx-0.5 text-slate-900 transition-colors duration-300 group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-300">{profile.namaPanggilan.toLowerCase()}</span>
+            <span className="text-violet-500 transition-transform duration-300 group-hover:translate-x-0.5 dark:text-violet-400">/&gt;</span>
+            <span aria-hidden="true" className="ml-0.5 animate-blink text-cyan-500 dark:text-cyan-400">_</span>
             <span className="logo-underline" aria-hidden="true" />
           </a>
 

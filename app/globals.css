@@ -29,10 +29,7 @@
     animation: theme-pop 0.45s ease;
   }
 
-  /* Navbar logo: gradient underline sweep + glow */
-  .logo-glow {
-    filter: drop-shadow(0 0 12px rgb(34 211 238 / 0.25));
-  }
+  /* Navbar logo: terminal caret + underline sweep — solid colors only, anti-radon */
   .logo-underline {
     position: absolute;
     left: 0;
