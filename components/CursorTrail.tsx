@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import { useTheme } from "@/lib/theme";
 
 interface Particle {
   x: number;
@@ -17,6 +18,7 @@ interface Particle {
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (reduce) return;
@@ -118,7 +120,11 @@ export default function CursorTrail() {
         const alpha = p.opacity * (1 - t);
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r * (1 - t * 0.6), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        // ponytail: white glow invisible on light bg — cyan trail reads on both modes.
+        ctx.fillStyle =
+          theme === "dark"
+            ? `rgba(255,255,255,${alpha})`
+            : `rgba(8,145,178,${alpha})`;
         ctx.fill();
       }
       // Sleep loop when idle — zero cost while user isn't moving the cursor.
@@ -149,7 +155,7 @@ export default function CursorTrail() {
       document.documentElement.removeEventListener("pointerleave", onLeave);
       window.clearTimeout(scrollTimer);
     };
-  }, [reduce]);
+  }, [reduce, theme]);
 
   return (
     <canvas

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import { useTheme } from "@/lib/theme";
 
 interface Flake {
   x: number;
@@ -15,6 +16,7 @@ interface Flake {
 export default function Snow() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (reduce) return;
@@ -75,7 +77,11 @@ export default function Snow() {
         if (f.x < -4) f.x = w + 4;
         ctx.beginPath();
         ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${f.opacity})`;
+        // ponytail: white flakes vanish on light bg — slate flakes stay visible in light mode.
+        ctx.fillStyle =
+          theme === "dark"
+            ? `rgba(255,255,255,${f.opacity})`
+            : `rgba(100,116,139,${f.opacity})`;
         ctx.fill();
       }
     };
@@ -91,7 +97,7 @@ export default function Snow() {
       window.removeEventListener("scroll", onScrollPause);
       window.clearTimeout(scrollTimer);
     };
-  }, [reduce]);
+  }, [reduce, theme]);
 
   return (
     <canvas

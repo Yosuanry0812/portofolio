@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import { useTheme } from "@/lib/theme";
 
 interface Star {
   x: number;
@@ -34,16 +35,26 @@ interface Meteor {
   maxLife: number;
 }
 
-const ORB_COLORS = [
+const ORB_COLORS_DARK = [
   "244, 114, 182, 0.10",
   "56, 189, 248, 0.08",
   "192, 132, 252, 0.10",
   "250, 204, 21, 0.08",
 ];
 
+// ponytail: dark orbs vanish on white — saturated light-mode set keeps aurora visible.
+const ORB_COLORS_LIGHT = [
+  "244, 114, 182, 0.20",
+  "14, 165, 233, 0.18",
+  "168, 85, 247, 0.20",
+  "234, 179, 8, 0.18",
+];
+
 export default function BackgroundFX() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
+  const { theme } = useTheme();
+  const dark = theme === "dark";
 
   useEffect(() => {
     if (reduce) return;
@@ -92,11 +103,12 @@ export default function BackgroundFX() {
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
+      const palette = dark ? ORB_COLORS_DARK : ORB_COLORS_LIGHT;
       orbs = [
-        { x: w * 0.12, y: h * 0.2, r: Math.min(w, h) * 0.55, dx: 60, dy: 30, sx: 0.12, sy: 0.09, ph: 0, color: ORB_COLORS[0] },
-        { x: w * 0.85, y: h * 0.25, r: Math.min(w, h) * 0.5, dx: 70, dy: 40, sx: 0.1, sy: 0.13, ph: 2.1, color: ORB_COLORS[1] },
-        { x: w * 0.75, y: h * 0.85, r: Math.min(w, h) * 0.6, dx: 80, dy: 50, sx: 0.13, sy: 0.1, ph: 4.2, color: ORB_COLORS[2] },
-        { x: w * 0.2, y: h * 0.9, r: Math.min(w, h) * 0.5, dx: 50, dy: 60, sx: 0.09, sy: 0.12, ph: 5.5, color: ORB_COLORS[3] },
+        { x: w * 0.12, y: h * 0.2, r: Math.min(w, h) * 0.55, dx: 60, dy: 30, sx: 0.12, sy: 0.09, ph: 0, color: palette[0] },
+        { x: w * 0.85, y: h * 0.25, r: Math.min(w, h) * 0.5, dx: 70, dy: 40, sx: 0.1, sy: 0.13, ph: 2.1, color: palette[1] },
+        { x: w * 0.75, y: h * 0.85, r: Math.min(w, h) * 0.6, dx: 80, dy: 50, sx: 0.13, sy: 0.1, ph: 4.2, color: palette[2] },
+        { x: w * 0.2, y: h * 0.9, r: Math.min(w, h) * 0.5, dx: 50, dy: 60, sx: 0.09, sy: 0.12, ph: 5.5, color: palette[3] },
       ];
 
       const count = small()
@@ -150,7 +162,7 @@ export default function BackgroundFX() {
         if (a <= 0.02) continue;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${a})`;
+        ctx.fillStyle = dark ? `rgba(255,255,255,${a})` : `rgba(71,85,105,${a + 0.15})`;
         ctx.fill();
       }
 
@@ -169,8 +181,8 @@ export default function BackgroundFX() {
         const tx = m.x - m.vx * m.len;
         const ty = m.y - m.vy * m.len;
         const g = ctx.createLinearGradient(m.x, m.y, tx, ty);
-        g.addColorStop(0, `rgba(255,255,255,${a * 0.9})`);
-        g.addColorStop(1, "rgba(255,255,255,0)");
+        g.addColorStop(0, dark ? `rgba(255,255,255,${a * 0.9})` : `rgba(14,165,233,${a * 0.85})`);
+        g.addColorStop(1, dark ? "rgba(255,255,255,0)" : "rgba(14,165,233,0)");
         ctx.strokeStyle = g;
         ctx.lineWidth = 2;
         ctx.lineCap = "round";
@@ -178,6 +190,10 @@ export default function BackgroundFX() {
         ctx.moveTo(m.x, m.y);
         ctx.lineTo(tx, ty);
         ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = dark ? `rgba(255,255,255,${a})` : `rgba(14,165,233,${a})`;
+        ctx.fill();
       }
     };
 
@@ -192,7 +208,7 @@ export default function BackgroundFX() {
       window.removeEventListener("scroll", onScrollPause);
       window.clearTimeout(scrollTimer);
     };
-  }, [reduce]);
+  }, [reduce, dark]);
 
   return (
     <canvas
