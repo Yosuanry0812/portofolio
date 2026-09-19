@@ -57,7 +57,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p {...fadeUp(0.1)} className="mt-6 max-w-lg text-slate-600 dark:text-slate-400">
-            {profile.tagline}
+            {t("hero.tagline")}
           </motion.p>
 
           <motion.div {...fadeUp(0.2)} className="mt-9 flex flex-wrap items-center gap-4">

@@ -10,7 +10,7 @@ import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
 
 const icons = [Code2, Server, Database, Cloud, BrainCircuit];
-const accents = ["text-cyan-400", "text-sky-400", "text-purple-400", "text-yellow-400", "text-cyan-400"];
+const accents = ["text-cyan-600 dark:text-cyan-400", "text-sky-600 dark:text-sky-400", "text-purple-600 dark:text-purple-400", "text-yellow-600 dark:text-yellow-400", "text-cyan-600 dark:text-cyan-400"];
 
 export default function Skills() {
   const [active, setActive] = useState(0);
@@ -47,12 +47,12 @@ export default function Skills() {
                   className={cn(
                     "flex items-center gap-2 whitespace-nowrap border-l-2 px-4 py-2.5 font-mono text-sm transition-colors",
                     isActive
-                      ? "border-cyan-400 bg-cyan-500/5 text-cyan-400"
-                      : "border-transparent text-slate-500 hover:bg-white/5 hover:text-slate-200 dark:text-slate-500 dark:hover:text-slate-200"
+                      ? "border-cyan-500 bg-cyan-500/5 text-cyan-700 dark:border-cyan-400 dark:text-cyan-400"
+                      : "border-transparent text-slate-500 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-500 dark:hover:bg-white/5 dark:hover:text-slate-200"
                   )}
                 >
-                  <TabIcon size={14} className={isActive ? "text-cyan-400" : ""} />
-                  {s.grup.toLowerCase()}
+                  <TabIcon size={14} className={isActive ? "text-cyan-600 dark:text-cyan-400" : ""} />
+                  {t(s.grup).toLowerCase()}
                   <span className="ml-auto font-mono text-[10px] text-slate-500">{s.items.length}</span>
                 </button>
               );
@@ -69,10 +69,10 @@ export default function Skills() {
                 exit={{ opacity: 0, y: reduce ? 0 : -8 }}
                 transition={{ duration: 0.25 }}
               >
-                <p className="font-mono text-xs text-slate-500 dark:text-slate-400">{group.deskripsi}</p>
+                <p className="font-mono text-xs text-slate-500 dark:text-slate-400">{t(group.deskripsi)}</p>
                 <h3 className="mt-1 flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white">
                   <Icon size={18} className={accent} />
-                  {group.grup}
+                  {t(group.grup)}
                 </h3>
 
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">

@@ -27,7 +27,7 @@ export default function About() {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={profile.foto}
-                alt={`Photo of ${profile.nama}`}
+                alt={`${t("about.photoAlt")}${profile.nama}`}
                 className="mx-auto h-32 w-32 rounded-2xl border border-cyan-500/30 object-cover shadow-lg"
               />
             ) : (
@@ -39,10 +39,10 @@ export default function About() {
               {profile.nama}
             </p>
             <p className="text-center font-mono text-xs text-slate-500 dark:text-slate-400">
-              {profile.peran}
+              {t("profile.role")}
             </p>
-            <div className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-xs text-cyan-400">
-              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-cyan-400" />
+            <div className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-xs text-cyan-700 dark:text-cyan-400">
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-cyan-500 dark:bg-cyan-400" />
               {t("about.online")}
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function About() {
           className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
         >
           <div className="p-6 sm:p-8">
-            <p className="leading-relaxed text-slate-600 dark:text-slate-300">{about.bio}</p>
+            <p className="leading-relaxed text-slate-600 dark:text-slate-300">{t(about.bio)}</p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {about.info.map((item) => (
@@ -66,9 +66,9 @@ export default function About() {
                   className="rounded-xl border border-slate-200 bg-white/60 px-4 py-3 dark:border-line dark:bg-bg/60"
                 >
                   <p className="font-mono text-[11px] uppercase tracking-widest text-slate-400 dark:text-slate-500">
-                    {item.label}
+                    {t(item.label)}
                   </p>
-                  <p className="mt-1 font-medium text-slate-900 dark:text-white">{item.value}</p>
+                  <p className="mt-1 font-medium text-slate-900 dark:text-white">{t(item.value)}</p>
                 </div>
               ))}
             </div>

@@ -47,7 +47,7 @@ export default function GitHubActivity() {
           >
             <p className="text-2xl font-bold text-gradient">{s.value}</p>
             <p className="mt-1 font-mono text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
-              {s.label}
+              {t(s.label)}
             </p>
           </div>
         ))}
@@ -64,7 +64,11 @@ export default function GitHubActivity() {
               blockSize={12}
               blockMargin={4}
               fontSize={12}
-              errorMessage={`Could not load contributions for ${profile.githubUsername} — check connection, then visit github.com/${profile.githubUsername}.`}
+              errorMessage={t("activity.error")}
+              labels={{
+                totalCount: t("activity.totalCount"),
+                legend: { less: t("activity.legendLess"), more: t("activity.legendMore") },
+              }}
             />
           ) : (
             <div
@@ -74,7 +78,7 @@ export default function GitHubActivity() {
           )}
         </div>
         <p className="mt-4 text-center font-mono text-xs text-slate-500 dark:text-slate-400">
-          github.com/{profile.githubUsername} — last 12 months
+          github.com/{profile.githubUsername} — {t("activity.last")}
         </p>
       </div>
     </section>

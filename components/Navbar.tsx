@@ -110,7 +110,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-900/5 hover:text-cyan-500 md:hidden dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-cyan-400"
             >
               {open ? <X size={20} /> : <Menu size={20} />}

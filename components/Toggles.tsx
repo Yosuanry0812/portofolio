@@ -9,12 +9,13 @@ const btn =
 
 export function ThemeToggle() {
   const { theme, toggle } = useTheme();
+  const { t } = useI18n();
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      title={theme === "dark" ? "Light mode" : "Dark mode"}
+      aria-label={theme === "dark" ? t("theme.toLight") : t("theme.toDark")}
+      title={theme === "dark" ? t("theme.light") : t("theme.dark")}
       className={btn}
     >
       {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
@@ -23,13 +24,13 @@ export function ThemeToggle() {
 }
 
 export function LangToggle({ compact }: { compact?: boolean }) {
-  const { lang, setLang } = useI18n();
+  const { lang, setLang, t } = useI18n();
   const next = lang === "id" ? "en" : "id";
   return (
     <button
       type="button"
       onClick={() => setLang(next)}
-      aria-label={lang === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia"}
+      aria-label={lang === "id" ? t("lang.toEn") : t("lang.toId")}
       title={lang === "id" ? "English" : "Indonesia"}
       className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-mono text-xs font-bold text-slate-600 transition-colors hover:bg-slate-900/5 hover:text-cyan-600 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-cyan-400"
     >

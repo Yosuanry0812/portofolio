@@ -11,11 +11,7 @@ import { cn } from "@/lib/utils";
 
 type Filter = "all" | ProjectCategory;
 
-const filters: { key: Filter; label: string }[] = [
-  { key: "all", label: "all" },
-  { key: "web", label: "web" },
-  { key: "mobile", label: "mobile" },
-];
+const filters: Filter[] = ["all", "web", "mobile"];
 
 // Language dot colors — lookup by first recognized tech
 const langColors: { match: string; color: string }[] = [
@@ -31,7 +27,7 @@ function langColor(tech: string[]): { color: string; label: string } {
     const hit = tech.find((t) => t.includes(lc.match));
     if (hit) return { color: lc.color, label: lc.match };
   }
-  return { color: "#22d3ee", label: "Other" };
+  return { color: "#22d3ee", label: "projects.other" };
 }
 
 export default function Projects() {
@@ -57,18 +53,18 @@ export default function Projects() {
       <div className="mb-10 flex flex-wrap gap-1.5">
         {filters.map((f) => (
           <button
-            key={f.key}
+            key={f}
             type="button"
-            onClick={() => setFilter(f.key)}
-            aria-pressed={filter === f.key}
+            onClick={() => setFilter(f)}
+            aria-pressed={filter === f}
             className={cn(
               "rounded-lg px-3.5 py-2 font-mono text-xs transition-colors",
-              filter === f.key
+              filter === f
                 ? "bg-cyan-500 text-slate-900 shadow-lg shadow-cyan-500/25"
                 : "text-slate-500 hover:bg-white/60 hover:text-cyan-400 dark:text-slate-400 dark:hover:bg-white/5"
             )}
           >
-            {f.label}
+            {t(`projects.filter.${f}`)}
           </button>
         ))}
       </div>
@@ -104,7 +100,7 @@ export default function Projects() {
               {featured.judul}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              {featured.deskripsi}
+              {t(featured.deskripsi)}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {featured.tech.map((t) => (
@@ -167,9 +163,9 @@ export default function Projects() {
                       </h3>
                       <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                         <span className="h-2 w-2 rounded-full" style={{ backgroundColor: lang.color }} />
-                        {lang.label}
+                        {t(lang.label)}
                         <span className="text-slate-300 dark:text-slate-600">·</span>
-                        <span className="text-cyan-500">{project.kategori === "mobile" ? "mobile" : "web"}</span>
+                        <span className="text-cyan-500">{t(`projects.filter.${project.kategori}`)}</span>
                       </p>
                     </div>
                   </div>
@@ -187,7 +183,7 @@ export default function Projects() {
 
                 {/* Description */}
                 <p className="mt-4 flex-1 px-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                  {project.deskripsi}
+                  {t(project.deskripsi)}
                 </p>
 
                 {/* Tech badges */}
@@ -210,7 +206,7 @@ export default function Projects() {
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Demo ${project.judul}`}
+                        aria-label={`${t("projects.demo")} ${project.judul}`}
                         className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:bg-cyan-500/10 hover:text-cyan-400 dark:text-slate-400"
                       >
                         {t("projects.demo")} <ExternalLink size={13} />
@@ -220,7 +216,7 @@ export default function Projects() {
                       href={project.repo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`Repo ${project.judul}`}
+                        aria-label={`${t("projects.repo")} ${project.judul}`}
                       className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:bg-sky-500/10 hover:text-sky-400 dark:text-slate-400"
                     >
                         {t("projects.repo")} <Github size={13} />

@@ -42,12 +42,12 @@ export default function Experience() {
 
                 {/* Date */}
                 <p className="mt-5 font-mono text-xs font-semibold text-emerald-400 uppercase tracking-wider">
-                  {item.periode}
+                  {t(item.periode)}
                 </p>
 
                 {/* Title */}
                 <h3 className="mt-2 text-base font-bold text-slate-900 dark:text-white leading-snug group-hover:text-emerald-400 transition-colors">
-                  {item.posisi}
+                  {t(item.posisi)}
                 </h3>
 
                 {/* Badge */}
@@ -58,7 +58,7 @@ export default function Experience() {
 
                 {/* Description */}
                 <p className="mt-3.5 text-[12px] leading-relaxed text-slate-500 dark:text-slate-400">
-                  {item.deskripsi}
+                  {t(item.deskripsi)}
                 </p>
               </motion.div>
             );
