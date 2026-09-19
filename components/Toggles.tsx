@@ -13,7 +13,7 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={(e) => toggle(e.clientX, e.clientY)}
+      onClick={toggle}
       aria-label={theme === "dark" ? t("theme.toLight") : t("theme.toDark")}
       title={theme === "dark" ? t("theme.light") : t("theme.dark")}
       className={btn}

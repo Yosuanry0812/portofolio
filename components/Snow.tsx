@@ -69,8 +69,8 @@ export default function Snow() {
       last = now;
       wind *= 0.94;
       const target = themeRef.current === "dark" ? 0 : 1;
-      blend += (target - blend) * 0.06;
-      if (Math.abs(target - blend) < 0.001) blend = target;
+      blend += (target - blend) * 0.14;
+      if (Math.abs(target - blend) < 0.002) blend = target;
       // white (dark) -> slate (light), eased
       const r = Math.round(255 + (100 - 255) * blend);
       const g = Math.round(255 + (116 - 255) * blend);

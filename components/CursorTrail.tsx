@@ -87,8 +87,8 @@ export default function CursorTrail() {
       if (now - last < 33) return; // ~30fps — particle fade invisible above this
       last = now;
       const target = themeRef.current === "dark" ? 0 : 1;
-      blend += (target - blend) * 0.06;
-      if (Math.abs(target - blend) < 0.001) blend = target;
+      blend += (target - blend) * 0.14;
+      if (Math.abs(target - blend) < 0.002) blend = target;
       // white (dark) -> cyan-600 (light), eased
       const cr = Math.round(255 + (8 - 255) * blend);
       const cg = Math.round(255 + (145 - 255) * blend);

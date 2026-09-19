@@ -156,10 +156,10 @@ export default function BackgroundFX() {
       if (now - last < 33) return; // ~30fps — fullscreen gradients cost GPU per frame
       last = now;
       smoothScroll += (targetScroll - smoothScroll) * 0.08;
-      // canvas color blend eases toward theme — no remount flash
+      // ease color toward theme same pace as veil fade (~600ms)
       const target = themeRef.current === "dark" ? 0 : 1;
-      blend += (target - blend) * 0.06;
-      if (Math.abs(target - blend) < 0.001) blend = target;
+      blend += (target - blend) * 0.12;
+      if (Math.abs(target - blend) < 0.002) blend = target;
       const t = (now - t0) / 1000;
       ctx.clearRect(0, 0, w, h);
 
