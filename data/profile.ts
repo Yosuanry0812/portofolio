@@ -15,8 +15,7 @@ export const profile = {
   cvUrl:
     "https://drive.google.com/drive/folders/1Ho62qcsnESOJzaN78dd4PT_avlJVNgW4?usp=drive_link",
 
-  // REPLACE: domain after deploying to Vercel
-  siteUrl: "https://GANTI.vercel.app",
+  siteUrl: "https://portofolio-yosuanry-simbolon.vercel.app",
 
   // REPLACE: put your photo in /public/foto.jpg then fill "/foto.jpg" (leave empty for placeholder)
   foto: "/Yosua_foto.jpg",
