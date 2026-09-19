@@ -2,17 +2,16 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { about, profile } from "@/data/profile";
+import { useI18n } from "@/lib/i18n";
 import SectionHeading from "./SectionHeading";
 
 export default function About() {
   const reduce = useReducedMotion();
+  const { t } = useI18n();
 
   return (
     <section id="about" className="container-x scroll-mt-24 py-24">
-      <SectionHeading
-        judul="About Me"
-        deskripsi="A quick look at who I am and what I do."
-      />
+      <SectionHeading judul={t("about.title")} deskripsi={t("about.desc")} />
 
       <div className="grid items-start gap-8 lg:grid-cols-[300px_1fr]">
         {/* Profile card */}
@@ -21,7 +20,7 @@ export default function About() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
+          className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
         >
           <div className="p-6">
             {profile.foto ? (
@@ -44,7 +43,7 @@ export default function About() {
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-xs text-cyan-400">
               <span className="h-2 w-2 animate-pulse-dot rounded-full bg-cyan-400" />
-              online — open to work
+              {t("about.online")}
             </div>
           </div>
         </motion.div>
@@ -55,7 +54,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
+          className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
         >
           <div className="p-6 sm:p-8">
             <p className="leading-relaxed text-slate-600 dark:text-slate-300">{about.bio}</p>
@@ -76,7 +75,7 @@ export default function About() {
 
             <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
               <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-cyan-400 align-middle" />
-              online  always learning, always building
+              {t("about.footer")}
             </p>
           </div>
         </motion.div>

@@ -20,6 +20,8 @@ export default function CursorTrail() {
 
   useEffect(() => {
     if (reduce) return;
+    // ponytail: touch devices gain nothing from a cursor trail — skip canvas entirely.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -37,6 +39,7 @@ export default function CursorTrail() {
     let cy = -100;
     let active = false;
     let lastEmit = 0;
+    let last = 0;
 
     const resize = () => {
       w = canvas.width = window.innerWidth;
@@ -45,7 +48,7 @@ export default function CursorTrail() {
 
     const spawn = (x: number, y: number, count: number) => {
       for (let i = 0; i < count; i++) {
-        if (particles.length > 260) particles.shift();
+        if (particles.length > 120) particles.shift();
         particles.push({
           x: x + (Math.random() - 0.5) * 6,
           y: y + (Math.random() - 0.5) * 6,
@@ -73,13 +76,26 @@ export default function CursorTrail() {
       active = false;
     };
 
-    const draw = () => {
-      const now = performance.now();
+    let scrolling = false;
+    let scrollTimer = 0;
+    const onScrollPause = () => {
+      scrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        scrolling = false;
+      }, 180);
+    };
+
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      if (document.hidden || scrolling) return;
+      if (now - last < 33) return; // ~30fps — particle fade invisible above this
+      last = now;
       if (active) {
         const k = 0.16;
         cx += (tx - cx) * k;
         cy += (ty - cy) * k;
-        if (now - lastEmit > 18) {
+        if (now - lastEmit > 36) {
           spawn(cx, cy, 2);
           lastEmit = now;
         }
@@ -88,15 +104,15 @@ export default function CursorTrail() {
       ctx.clearRect(0, 0, w, h);
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        p.life++;
+        p.life += 2; // compensate 30fps step
         if (p.life >= p.maxLife) {
           particles.splice(i, 1);
           continue;
         }
-        p.x += p.vx;
-        p.y += p.vy;
+        p.x += p.vx * 2;
+        p.y += p.vy * 2;
         // Light float like snow
-        p.x += Math.sin(p.y * 0.02 + p.r) * 0.2;
+        p.x += Math.sin(p.y * 0.02 + p.r) * 0.4;
 
         const t = p.life / p.maxLife;
         const alpha = p.opacity * (1 - t);
@@ -105,20 +121,33 @@ export default function CursorTrail() {
         ctx.fillStyle = `rgba(255,255,255,${alpha})`;
         ctx.fill();
       }
-      raf = requestAnimationFrame(draw);
+      // Sleep loop when idle — zero cost while user isn't moving the cursor.
+      if (!active && particles.length === 0) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+        const wake = () => {
+          if (raf) return;
+          last = performance.now();
+          raf = requestAnimationFrame(draw);
+        };
+        window.addEventListener("pointermove", wake, { once: true, passive: true });
+      }
     };
 
     resize();
-    draw();
+    raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", onScrollPause, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScrollPause);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
+      window.clearTimeout(scrollTimer);
     };
   }, [reduce]);
 
@@ -126,7 +155,7 @@ export default function CursorTrail() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[2]"
+      className="pointer-events-none fixed inset-0 z-[2] hidden [@media(pointer:fine)]:block"
     />
   );
 }

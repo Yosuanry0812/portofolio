@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BrainCircuit, Cloud, Code2, Database, Server } from "lucide-react";
 import { skills } from "@/data/profile";
+import { useI18n } from "@/lib/i18n";
 import { getSkillColor, getSkillIcon } from "@/data/skills-icons";
 import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ const accents = ["text-cyan-400", "text-sky-400", "text-purple-400", "text-yello
 export default function Skills() {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
+  const { t } = useI18n();
 
   const group = skills[active];
   const Icon = icons[active % icons.length];
@@ -21,17 +23,14 @@ export default function Skills() {
 
   return (
     <section id="skills" className="container-x scroll-mt-24 py-24">
-      <SectionHeading
-        judul="Tech Stack & Skills"
-        deskripsi="Technologies I use to turn ideas into products."
-      />
+      <SectionHeading judul={t("skills.title")} deskripsi={t("skills.desc")} />
 
       <motion.div
         initial={{ opacity: 0, y: reduce ? 0 : 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="overflow-hidden rounded-2xl border border-slate-200 bg-surface shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
+        className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-cyan-500/5 dark:border-line dark:bg-surface"
       >
         <div className="grid md:grid-cols-[220px_1fr]">
           {/* Category sidebar */}

@@ -26,13 +26,18 @@ export default function Snow() {
 
     let flakes: Flake[] = [];
     let raf = 0;
+    let last = 0;
     let w = 0;
     let h = 0;
 
     const resize = () => {
+      // ponytail: DPR locked to 1 — soft dots need no retina sharpness, halves fill cost on mobile.
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      const count = Math.min(110, Math.max(30, Math.floor(w / 16)));
+      const small = w < 768;
+      const count = small
+        ? Math.min(45, Math.max(15, Math.floor(w / 28)))
+        : Math.min(110, Math.max(30, Math.floor(w / 16)));
       flakes = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -43,11 +48,25 @@ export default function Snow() {
       }));
     };
 
-    const draw = () => {
+    let scrolling = false;
+    let scrollTimer = 0;
+    const onScrollPause = () => {
+      scrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        scrolling = false;
+      }, 180);
+    };
+
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      if (document.hidden || scrolling) return;
+      if (now - last < 33) return; // ~30fps — snow drift invisible above this
+      last = now;
       ctx.clearRect(0, 0, w, h);
       for (const f of flakes) {
-        f.y += f.speed;
-        f.x += f.drift + Math.sin(f.y * 0.01 + f.r) * 0.3;
+        f.y += f.speed * 2; // compensate 30fps step
+        f.x += f.drift * 2 + Math.sin(f.y * 0.01 + f.r) * 0.6;
         if (f.y > h + 4) {
           f.y = -4;
           f.x = Math.random() * w;
@@ -59,16 +78,18 @@ export default function Snow() {
         ctx.fillStyle = `rgba(255,255,255,${f.opacity})`;
         ctx.fill();
       }
-      raf = requestAnimationFrame(draw);
     };
 
     resize();
-    draw();
+    raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", onScrollPause, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScrollPause);
+      window.clearTimeout(scrollTimer);
     };
   }, [reduce]);
 

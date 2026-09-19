@@ -61,7 +61,9 @@ export default function BackgroundFX() {
     let meteors: Meteor[] = [];
     let raf = 0;
     let nextMeteor = 0;
+    let last = 0;
     const t0 = performance.now();
+    const small = () => w < 768;
 
     const spawnMeteor = (now: number) => {
       const x = Math.random() * w;
@@ -83,7 +85,7 @@ export default function BackgroundFX() {
     const resize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = Math.min(window.devicePixelRatio || 1, small() ? 1 : 1.5);
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
@@ -97,7 +99,9 @@ export default function BackgroundFX() {
         { x: w * 0.2, y: h * 0.9, r: Math.min(w, h) * 0.5, dx: 50, dy: 60, sx: 0.09, sy: 0.12, ph: 5.5, color: ORB_COLORS[3] },
       ];
 
-      const count = Math.min(140, Math.max(50, Math.floor((w * h) / 14000)));
+      const count = small()
+        ? Math.min(60, Math.max(25, Math.floor((w * h) / 28000)))
+        : Math.min(140, Math.max(50, Math.floor((w * h) / 14000)));
       stars = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -108,7 +112,22 @@ export default function BackgroundFX() {
       }));
     };
 
+    // ponytail: freeze loop while scrolling — canvas CPU raster was stealing frames from 90-120Hz scroll.
+    let scrolling = false;
+    let scrollTimer = 0;
+    const onScrollPause = () => {
+      scrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        scrolling = false;
+      }, 180);
+    };
+
     const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      if (document.hidden || scrolling) return;
+      if (now - last < 33) return; // ~30fps — fullscreen gradients cost GPU per frame
+      last = now;
       const t = (now - t0) / 1000;
       ctx.clearRect(0, 0, w, h);
 
@@ -123,8 +142,10 @@ export default function BackgroundFX() {
         ctx.fillRect(cx - o.r, cy - o.r, o.r * 2, o.r * 2);
       }
 
-      // Twinkling stars
-      for (const s of stars) {
+      // Twinkling stars (every other skipped on mobile — halves arc fills)
+      for (let si = 0; si < stars.length; si++) {
+        if (small() && (si & 1) === 1) continue;
+        const s = stars[si];
         const a = s.base + Math.sin(t * s.speed + s.phase) * 0.12;
         if (a <= 0.02) continue;
         ctx.beginPath();
@@ -133,17 +154,17 @@ export default function BackgroundFX() {
         ctx.fill();
       }
 
-      // Meteor
-      if (now >= nextMeteor && meteors.length < 2) spawnMeteor(now);
+      // Meteor (desktop only — linear-gradient strokes cost GPU on mobile)
+      if (!small() && now >= nextMeteor && meteors.length < 2) spawnMeteor(now);
       for (let i = meteors.length - 1; i >= 0; i--) {
         const m = meteors[i];
-        m.life++;
+        m.life += 2; // compensate 30fps step so meteors keep same lifetime
         if (m.life > m.maxLife || m.y > h + 60) {
           meteors.splice(i, 1);
           continue;
         }
-        m.x += m.vx;
-        m.y += m.vy;
+        m.x += m.vx * 2;
+        m.y += m.vy * 2;
         const a = 1 - m.life / m.maxLife;
         const tx = m.x - m.vx * m.len;
         const ty = m.y - m.vy * m.len;
@@ -157,23 +178,19 @@ export default function BackgroundFX() {
         ctx.moveTo(m.x, m.y);
         ctx.lineTo(tx, ty);
         ctx.stroke();
-        // meteor head dot
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${a})`;
-        ctx.fill();
       }
-
-      raf = requestAnimationFrame(draw);
     };
 
     resize();
-    draw(performance.now());
+    raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", onScrollPause, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScrollPause);
+      window.clearTimeout(scrollTimer);
     };
   }, [reduce]);
 

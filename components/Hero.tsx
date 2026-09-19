@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, FileDown } from "lucide-react";
 import { about, profile } from "@/data/profile";
+import { useI18n } from "@/lib/i18n";
 import { getSkillColor, getSkillIcon } from "@/data/skills-icons";
 
 const heroIcons = [
@@ -29,6 +30,7 @@ const iconPositions = [
 
 export default function Hero() {
   const reduce = useReducedMotion();
+  const { t } = useI18n();
 
   const fadeUp = (delay: number) => ({
     initial: { opacity: 0, y: reduce ? 0 : 24 },
@@ -64,14 +66,16 @@ export default function Hero() {
               className="group inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 font-medium text-slate-900 shadow-lg shadow-cyan-500/25 transition-all hover:-translate-y-0.5 hover:bg-cyan-400"
             >
               <ArrowDown size={18} className="transition-transform group-hover:translate-y-0.5" />
-              View Projects
+              {t("hero.viewProjects")}
             </a>
             <a
               href={profile.cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-all hover:-translate-y-0.5 hover:border-cyan-500 hover:text-cyan-500 dark:border-line dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
             >
               <FileDown size={18} />
-              Download CV
+              {t("hero.downloadCv")}
             </a>
           </motion.div>
         </div>
@@ -105,17 +109,28 @@ export default function Hero() {
               return (
                 <motion.div
                   key={name}
-                  className="absolute flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white/70 shadow-lg shadow-slate-900/5 backdrop-blur dark:border-line dark:bg-surface/70 dark:shadow-black/40"
+                  className="absolute"
                   style={{ top: pos.top, left: pos.left }}
                   initial={{ opacity: 0, scale: 0.6 }}
-                  animate={{ opacity: 1, scale: 1, y: reduce ? 0 : [0, -14, 0] }}
-                  transition={{
-                    opacity: { duration: 0.5, delay: 0.4 + i * 0.1 },
-                    scale: { duration: 0.5, delay: 0.4 + i * 0.1 },
-                    y: { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.45 },
-                  }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                 >
-                  <Icon size={26} style={color ? { color } : undefined} />
+                  {/* CSS float runs on compositor; framer infinite loop blocked main thread on scroll */}
+                  <div
+                    className={reduce ? undefined : "animate-float"}
+                    style={
+                      reduce
+                        ? undefined
+                        : {
+                            animationDuration: `${3 + (i % 3)}s`,
+                            animationDelay: `${i * 0.45}s`,
+                          }
+                    }
+                  >
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white/70 shadow-lg shadow-slate-900/5 backdrop-blur dark:border-line dark:bg-surface/70 dark:shadow-black/40">
+                      <Icon size={26} style={color ? { color } : undefined} />
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}

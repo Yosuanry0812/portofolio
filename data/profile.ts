@@ -11,11 +11,9 @@ export const profile = {
   // WhatsApp (number without +62 — use 628... format)
   whatsapp: "6281268247843",
 
-  // REPLACE: Formspree URL from https://formspree.io (already filled from your account)
-  formspreeEndpoint: "https://formspree.io/f/xeeyyvly",
-
-  // REPLACE: link to your CV file (e.g. /cv.pdf in the public folder)
-  cvUrl: "#cv-not-available",
+  // CV tersimpan di Google Drive — dibuka di tab baru
+  cvUrl:
+    "https://drive.google.com/drive/folders/1Ho62qcsnESOJzaN78dd4PT_avlJVNgW4?usp=drive_link",
 
   // REPLACE: domain after deploying to Vercel
   siteUrl: "https://GANTI.vercel.app",
@@ -85,7 +83,15 @@ export interface Project {
   kategori: ProjectCategory;
   demo: string;
   repo: string;
+  image?: string;
 }
+
+export const stats = [
+  { label: "Projects", value: "6+" },
+  { label: "Tech", value: "20+" },
+  { label: "Years", value: "2+" },
+  { label: "Commits", value: "500+" },
+];
 
 // Original repos from GitHub (github.com/Yosuanry0812)
 export const projects: Project[] = [

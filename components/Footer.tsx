@@ -1,22 +1,29 @@
 "use client";
 
-import { Github, Linkedin, Mail, MessageCircle } from "lucide-react";
+import type { ComponentType } from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 import { profile } from "@/data/profile";
+import { useI18n } from "@/lib/i18n";
 
-const icons: Record<string, typeof Github> = {
+type IconProps = { size?: number | string; className?: string };
+const icons: Record<string, ComponentType<IconProps>> = {
   GitHub: Github,
   LinkedIn: Linkedin,
-  WhatsApp: MessageCircle,
+  WhatsApp: SiWhatsapp,
   Email: Mail,
 };
 
 export default function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="border-t border-slate-200 dark:border-line">
       <div className="container-x flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <p className="font-mono text-sm text-slate-500 dark:text-slate-400">
-          <span className="text-cyan-400">©</span> {new Date().getFullYear()}{" "}
+          <span className="text-cyan-600 dark:text-cyan-400">©</span> {new Date().getFullYear()}{" "}
           <span className="text-slate-900 dark:text-white">{profile.nama}</span>
+          {" · "}
+          {t("footer.rights")}
         </p>
 
         <div className="flex gap-3">

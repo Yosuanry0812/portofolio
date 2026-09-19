@@ -36,12 +36,17 @@ const config: Config = {
           "0%, 100%": { opacity: "1", boxShadow: "0 0 0 0 rgba(52,211,153,0.5)" },
           "50%": { opacity: "0.7", boxShadow: "0 0 0 6px rgba(52,211,153,0)" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-14px)" },
+        },
       },
       animation: {
         blink: "blink 1s step-end infinite",
         marquee: "marquee 36s linear infinite",
         "marquee-reverse": "marquee-reverse 30s linear infinite",
         "pulse-dot": "pulse-dot 2s ease-in-out infinite",
+        float: "float 4s ease-in-out infinite",
       },
     },
   },

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import type { ComponentType } from "react";
 import {
   ArrowUpRight,
   Check,
@@ -9,16 +10,18 @@ import {
   Github,
   Linkedin,
   Mail,
-  MessageCircle,
 } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 import { profile } from "@/data/profile";
+import { useI18n } from "@/lib/i18n";
 import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
 
-const socialIcons: Record<string, typeof Github> = {
+type IconProps = { size?: number | string; className?: string };
+const socialIcons: Record<string, ComponentType<IconProps>> = {
   GitHub: Github,
   LinkedIn: Linkedin,
-  WhatsApp: MessageCircle,
+  WhatsApp: SiWhatsapp,
   Email: Mail,
 };
 
@@ -29,6 +32,7 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [sent, setSent] = useState(false);
   const reduce = useReducedMotion();
+  const { t, lang } = useI18n();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +43,7 @@ export default function Contact() {
     const pesan = String(data.get("pesan") ?? "");
 
     const text = [
-      `Hello, I'm ${nama}.`,
+      lang === "id" ? `Halo, saya ${nama}.` : `Hello, I'm ${nama}.`,
       email ? `Email: ${email}` : "",
       "",
       pesan,
@@ -72,10 +76,7 @@ export default function Contact() {
       <div className="pointer-events-none absolute -top-32 right-0 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 left-0 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
 
-      <SectionHeading
-        judul="Get In Touch"
-        deskripsi="Have a project, job opportunity, or just want to say hi? Send a message."
-      />
+      <SectionHeading judul={t("contact.title")} deskripsi={t("contact.desc")} />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
         {/* Left: contact profile card */}
@@ -90,9 +91,9 @@ export default function Contact() {
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-cyan-500" />
 
           <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
-            Don't be shy,
+            {t("contact.dontBeShy")}
             <br />
-            <span className="text-gradient">let's talk.</span>
+            <span className="text-gradient">{t("contact.letsTalk")}</span>
           </h3>
 
           <div className="mt-4 flex items-center gap-2 font-mono text-xs">
@@ -100,7 +101,7 @@ export default function Contact() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500" />
             </span>
-            <span className="text-slate-500 dark:text-slate-400">open to opportunities</span>
+            <span className="text-slate-500 dark:text-slate-400">{t("contact.openTo")}</span>
           </div>
 
           {/* Email + copy button */}
@@ -115,7 +116,7 @@ export default function Contact() {
               </span>
               <span className="min-w-0 text-left">
                 <span className="block font-mono text-[11px] text-slate-500 dark:text-slate-400">
-                  click to copy
+                  {t("contact.clickToCopy")}
                 </span>
                 <span className="block truncate font-mono text-sm font-medium text-slate-900 dark:text-white">
                   {profile.email}
@@ -130,7 +131,7 @@ export default function Contact() {
                     exit={{ opacity: 0, scale: 0.8 }}
                     className="flex shrink-0 items-center gap-1 rounded-lg bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-400"
                   >
-                    <Check size={14} /> Copied!
+                    <Check size={14} /> {t("contact.copied")}
                   </motion.span>
                 ) : (
                   <motion.span
@@ -189,31 +190,31 @@ export default function Contact() {
         >
           <div className="rounded-[15px] bg-white/80 p-6 backdrop-blur dark:bg-surface/80">
             <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
-              Send a message
+              {t("contact.sendMessage")}
             </p>
 
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <label className="block">
                 <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  Your Name
+                  {t("contact.yourName")}
                 </span>
                 <input
                   name="nama"
                   type="text"
                   required
-                  placeholder="Full name"
+                  placeholder={t("contact.phName")}
                   className={inputClass}
                 />
               </label>
               <label className="block">
                 <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  Your Email
+                  {t("contact.yourEmail")}
                 </span>
                 <input
                   name="email"
                   type="email"
                   required
-                  placeholder="you@email.com"
+                  placeholder={t("contact.phEmail")}
                   className={inputClass}
                 />
               </label>
@@ -221,13 +222,13 @@ export default function Contact() {
 
             <label className="mt-5 block">
               <span className="mb-2 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                Your Message
+                {t("contact.yourMessage")}
               </span>
               <textarea
                 name="pesan"
                 required
                 rows={5}
-                placeholder="Write your message here..."
+                placeholder={t("contact.phMessage")}
                 className={cn(inputClass, "resize-none")}
               />
             </label>
@@ -236,8 +237,8 @@ export default function Contact() {
               type="submit"
               className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 px-6 py-3.5 font-medium text-slate-900 shadow-lg shadow-cyan-500/25 transition-all hover:shadow-cyan-500/40 hover:brightness-110"
             >
-              <MessageCircle size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              Send via WhatsApp
+              <SiWhatsapp size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              {t("contact.sendWa")}
             </button>
 
             <AnimatePresence>
@@ -248,8 +249,7 @@ export default function Contact() {
                   exit={{ opacity: 0 }}
                   className="mt-4 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-3 font-mono text-sm text-cyan-400"
                 >
-                  <span className="text-cyan-400">✓</span> WhatsApp opened — just hit send
-                  there.
+                  <span className="text-cyan-400">✓</span> {t("contact.sent")}
                 </motion.p>
               ) : null}
             </AnimatePresence>

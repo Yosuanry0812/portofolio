@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { profile } from "@/data/profile";
+import { ThemeProvider } from "@/lib/theme";
+import { I18nProvider } from "@/lib/i18n";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -23,6 +25,10 @@ export const metadata: Metadata = {
     profile.githubUsername,
   ],
   authors: [{ name: profile.nama }],
+  icons: {
+    icon: profile.foto,
+    apple: profile.foto,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -30,11 +36,13 @@ export const metadata: Metadata = {
     siteName: profile.nama,
     title: `${profile.nama} — ${profile.peran}`,
     description: profile.tagline,
+    images: [{ url: profile.foto, width: 1200, height: 630, alt: profile.nama }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${profile.nama} — ${profile.peran}`,
     description: profile.tagline,
+    images: [profile.foto],
   },
   robots: { index: true, follow: true },
 };
@@ -54,19 +62,30 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${jetbrains.variable} font-sans`}>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-cyan-500 focus:px-4 focus:py-2 focus:font-medium focus:text-slate-900"
-        >
-          Skip to main content
-        </a>
+    <html lang="en" suppressHydrationWarning>
+      <head>
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: light)').matches;var d=t?t==='dark':!m;document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})()`,
+          }}
         />
-        {children}
+      </head>
+      <body className={`${inter.variable} ${jetbrains.variable} font-sans`}>
+        <ThemeProvider>
+          <I18nProvider>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-cyan-500 focus:px-4 focus:py-2 focus:font-medium focus:text-slate-900"
+            >
+              Skip to main content
+            </a>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            {children}
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
