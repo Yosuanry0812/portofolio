@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 export type Lang = "id" | "en";
 
@@ -20,7 +26,8 @@ const dict: Record<Lang, Dict> = {
     "nav.closeMenu": "Close menu",
     "hero.viewProjects": "View Projects",
     "hero.downloadCv": "Download CV",
-    "hero.tagline": "I build fast, beautiful, and scalable web apps.",
+    "hero.tagline":
+      "I build web and mobile applications with React, Next.js, and Laravel.",
     "profile.role": "Full-Stack Developer",
     "about.title": "About Me",
     "about.desc": "A quick look at who I am and what I do.",
@@ -32,7 +39,8 @@ const dict: Record<Lang, Dict> = {
     "skills.title": "Tech Stack & Skills",
     "skills.desc": "Technologies I use to turn ideas into products.",
     "activity.title": "GitHub Activity",
-    "activity.desc": "Consistent commits a habit of shipping and learning in public.",
+    "activity.desc":
+      "Consistent commits a habit of shipping and learning in public.",
     "activity.last": "last 12 months",
     "activity.error":
       "Could not load contributions — check connection, then visit the GitHub profile.",
@@ -53,7 +61,8 @@ const dict: Record<Lang, Dict> = {
     "projects.filter.mobile": "mobile",
     "projects.other": "Other",
     "contact.title": "Get In Touch",
-    "contact.desc": "Have a project, job opportunity, or just want to say hi? Send a message.",
+    "contact.desc":
+      "Have a project, job opportunity, or just want to say hi? Send a message.",
     "contact.letsTalk": "let's talk.",
     "contact.dontBeShy": "Don't be shy,",
     "contact.openTo": "open to opportunities",
@@ -71,7 +80,8 @@ const dict: Record<Lang, Dict> = {
     "footer.rights": "All rights reserved.",
     "top.back": "Back to top",
     "common.skip": "Skip to main content",
-    "ee.thanks": "Thanks for diving into my source code.\nIf you're reading this, we vibe the same. 👋",
+    "ee.thanks":
+      "Thanks for diving into my source code.\nIf you're reading this, we vibe the same. 👋",
     "theme.toLight": "Switch to light mode",
     "theme.toDark": "Switch to dark mode",
     "theme.light": "Light mode",
@@ -90,7 +100,8 @@ const dict: Record<Lang, Dict> = {
     "nav.closeMenu": "Tutup menu",
     "hero.viewProjects": "Lihat Proyek",
     "hero.downloadCv": "Unduh CV",
-    "hero.tagline": "Saya membangun aplikasi web yang cepat, indah, dan skalabel.",
+    "hero.tagline":
+      "Saya membuat aplikasi web dan mobile dengan React, Next.js, dan Laravel.",
     "profile.role": "Pengembang Full-Stack",
     "about.title": "Tentang Saya",
     "about.desc": "Sekilas tentang siapa saya dan apa yang saya kerjakan.",
@@ -100,7 +111,8 @@ const dict: Record<Lang, Dict> = {
     "exp.title": "Linimasa Karier",
     "exp.scroll": "< geser >",
     "skills.title": "Teknologi & Keahlian",
-    "skills.desc": "Teknologi yang saya gunakan untuk wujudkan ide jadi produk.",
+    "skills.desc":
+      "Teknologi yang saya gunakan untuk wujudkan ide jadi produk.",
     "activity.title": "Aktivitas GitHub",
     "activity.desc": "Komit konsisten — kebiasaan rilis dan belajar di publik.",
     "activity.last": "12 bulan terakhir",
@@ -110,7 +122,8 @@ const dict: Record<Lang, Dict> = {
     "activity.legendLess": "Sedikit",
     "activity.legendMore": "Banyak",
     "projects.title": "Proyek Unggulan",
-    "projects.desc": "Beberapa hal yang sudah saya bangun — filter per kategori.",
+    "projects.desc":
+      "Beberapa hal yang sudah saya bangun — filter per kategori.",
     "projects.featured": "proyek unggulan",
     "projects.deployed": "deployed",
     "projects.repoOnly": "repo saja",
@@ -123,7 +136,8 @@ const dict: Record<Lang, Dict> = {
     "projects.filter.mobile": "mobile",
     "projects.other": "Lainnya",
     "contact.title": "Hubungi Saya",
-    "contact.desc": "Punya proyek, peluang kerja, atau sekadar sapa? Kirim pesan.",
+    "contact.desc":
+      "Punya proyek, peluang kerja, atau sekadar sapa? Kirim pesan.",
     "contact.letsTalk": "yuk ngobrol.",
     "contact.dontBeShy": "Jangan ragu,",
     "contact.openTo": "terbuka untuk peluang",
@@ -159,12 +173,14 @@ const dict: Record<Lang, Dict> = {
     "Open to Opportunities": "Terbuka untuk Peluang",
     "Indonesian, English": "Indonesia, Inggris",
     "Web, Mobile, UI/UX": "Web, Mobile, UI/UX",
-    "The programming languages I work with": "Bahasa pemrograman yang saya gunakan",
+    "The programming languages I work with":
+      "Bahasa pemrograman yang saya gunakan",
     "Backend & Frameworks": "Backend & Framework",
     "The stack I use to build web and mobile apps":
       "Stack yang saya gunakan untuk membangun aplikasi web dan mobile",
     "Storing and managing data": "Menyimpan dan mengelola data",
-    "Deployment, infrastructure, and automation": "Deployment, infrastruktur, dan otomatisasi",
+    "Deployment, infrastructure, and automation":
+      "Deployment, infrastruktur, dan otomatisasi",
     "AI & Automation": "AI & Otomatisasi",
     "AI tools that boost developer productivity":
       "Perkakas AI yang meningkatkan produktivitas developer",
@@ -176,12 +192,12 @@ const dict: Record<Lang, Dict> = {
       "Aplikasi keuangan untuk mengelola arus kas, pemasukan, pengeluaran, dan laporan Pondok Daun dalam satu tempat.",
     "Interactive web app for visualizing and planning land layouts.":
       "Aplikasi web interaktif untuk memvisualisasikan dan merencanakan tata letak lahan.",
-    "Modern profile site for Pondok Daun, presenting activities, facilities, and contact info in a clean layout.":
-      "Situs profil modern untuk Pondok Daun yang menampilkan kegiatan, fasilitas, dan info kontak dalam tata letak bersih.",
+    "Property website for Pondok Daun, with a housing catalog, unit details, and a mortgage information portal.":
+      "Website perumahan Pondok Daun dengan katalog rumah, detail unit, dan portal informasi KPR.",
     "Laravelpowered site for Bangkiang Jaran with content management and a full admin panel.":
       "Situs Laravel untuk Bangkiang Jaran dengan manajemen konten dan panel admin lengkap.",
-    "Mobile app that showcases Indonesian batik catalog, motif details, and cultural context.":
-      "Aplikasi mobile yang menampilkan katalog batik Indonesia, detail motif, dan konteks budaya.",
+    "iCareBatik mobile application for exploring batik motifs, their origins, and image-based motif identification.":
+      "Aplikasi iCareBatik untuk menjelajahi motif batik, asal-usulnya, dan identifikasi motif dari gambar.",
     "End to end tracker for credit agreement applications status, documents, and progress at a glance.":
       "Pelacak status pengajuan akad kredit secara end to end  dokumen dan progres sekilas.",
     "Oct 2023 — Present": "Okt 2023 — Sekarang",
@@ -236,7 +252,11 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const setLang = (l: Lang) => setLangState(l);
   const t = (key: string) => dict[lang][key] ?? key;
 
-  return <I18nContext.Provider value={{ lang, setLang, t }}>{children}</I18nContext.Provider>;
+  return (
+    <I18nContext.Provider value={{ lang, setLang, t }}>
+      {children}
+    </I18nContext.Provider>
+  );
 }
 
 export function useI18n() {

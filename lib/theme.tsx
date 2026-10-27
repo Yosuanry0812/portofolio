@@ -18,7 +18,7 @@ const syncDom = (value: Theme) => {
     meta.setAttribute("name", "theme-color");
     document.head.appendChild(meta);
   }
-  meta.setAttribute("content", value === "dark" ? "#0B0F17" : "#f8fafc");
+  meta.setAttribute("content", value === "dark" ? "#111510" : "#f3f3eb");
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -51,7 +51,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const veil = document.createElement("div");
     veil.setAttribute("aria-hidden", "true");
     veil.setAttribute("data-theme-veil", "");
-    veil.style.cssText = `position:fixed;inset:0;z-index:100;pointer-events:none;background:${theme === "dark" ? "#0B0F17" : "#f8fafc"};opacity:1;transition:opacity 0.55s ease;`;
+    veil.style.cssText = `position:fixed;inset:0;z-index:100;pointer-events:none;background:${theme === "dark" ? "#111510" : "#f3f3eb"};opacity:1;transition:opacity 0.55s ease;`;
     document.body.appendChild(veil);
     root.classList.add("theming");
     syncDom(next);

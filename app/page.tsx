@@ -1,39 +1,10 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import TechMarquee from "@/components/TechMarquee";
-import About from "@/components/About";
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
-import GitHubActivity from "@/components/GitHubActivity";
-import Projects from "@/components/Projects";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import BackToTop from "@/components/BackToTop";
-import EasterEgg from "@/components/EasterEgg";
-import BackgroundFX from "@/components/BackgroundFX";
-import Snow from "@/components/Snow";
-import CursorTrail from "@/components/CursorTrail";
+import CreativePortfolio from "@/components/CreativePortfolio";
+import { GitHubProvider } from "@/lib/github-client";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <BackgroundFX />
-      <Snow />
-      <CursorTrail />
-      <main id="main">
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <GitHubActivity />
-        <Projects />
-        <TechMarquee />
-        <Contact />
-      </main>
-      <Footer />
-      <BackToTop />
-      <EasterEgg />
-    </>
+    <GitHubProvider>
+      <CreativePortfolio />
+    </GitHubProvider>
   );
 }

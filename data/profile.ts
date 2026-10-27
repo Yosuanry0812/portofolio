@@ -1,8 +1,11 @@
+import githubSnapshot from "./github-snapshot.json";
+
 export const profile = {
   nama: "Yosuanry Simbolon",
   namaPanggilan: "Yosua",
   peran: "Full-Stack Developer",
-  tagline: "I build fast, beautiful, and scalable web apps.",
+  tagline:
+    "Full-stack developer building web and mobile applications with React, Next.js, and Laravel.",
   githubUsername: "Yosuanry0812",
 
   // Email tetap pakai Drive (HR bisa copy/manual)
@@ -27,7 +30,10 @@ export const profile = {
 
   socials: [
     { nama: "GitHub", url: "https://github.com/Yosuanry0812" },
-    { nama: "LinkedIn", url: "https://www.linkedin.com/in/yosuanry-simbolon-5540222a7/" },
+    {
+      nama: "LinkedIn",
+      url: "https://www.linkedin.com/in/yosuanry-simbolon-5540222a7/",
+    },
     { nama: "WhatsApp", url: "https://wa.me/6281268247843" },
     { nama: "Email", url: "mailto:yosuanry66@gmail.com" },
   ],
@@ -35,12 +41,15 @@ export const profile = {
 
 export const about = {
   // REPLACE: write a short bio about yourself
-  bio: "Hi, I'm Yosuanry Simbolon a Full-Stack Developer based in Bali, Indonesia. I love turning ideas into digital products people genuinely enjoy using. I obsess over sharp frontends, clean backends, and the small details that make an experience feel premium. Sedia bekerja Remote atau Onsite.",
+  bio: "I'm Yosuanry Simbolon, a Full-Stack Developer based in Bali, Indonesia. I work on frontend, backend, and API integrations for web and mobile applications. Available for remote or onsite work.",
   info: [
     { label: "Lokasi", value: "Bali, Indonesia" },
     { label: "Status", value: "Open to Opportunities" },
     { label: "Languages", value: "Indonesian, English" },
-    { label: "Work Type", value: "Fullstack Developer (JavaScript/TypeScript ecosystem)" },
+    {
+      label: "Work Type",
+      value: "Fullstack Developer (JavaScript/TypeScript ecosystem)",
+    },
   ],
   // REPLACE: initials for the avatar placeholder
   inisial: "YS",
@@ -55,7 +64,15 @@ export const skills = [
   {
     grup: "Backend & Frameworks",
     deskripsi: "The stack I use to build web and mobile apps",
-    items: ["Node.js", "Laravel", "React Native", "Expo", "React.js", "Next.js", "Vue.js"],
+    items: [
+      "Node.js",
+      "Laravel",
+      "React Native",
+      "Expo",
+      "React.js",
+      "Next.js",
+      "Vue.js",
+    ],
   },
   {
     grup: "Database",
@@ -83,14 +100,8 @@ export interface Project {
   demo: string;
   repo: string;
   image?: string;
+  previewPage?: string;
 }
-
-export const stats = [
-  { label: "Projects", value: "6+" },
-  { label: "Tech", value: "20+" },
-  { label: "Years", value: "2+" },
-  { label: "Commits", value: "500+" },
-];
 
 // Original repos from GitHub (github.com/Yosuanry0812)
 export const projects: Project[] = [
@@ -102,24 +113,29 @@ export const projects: Project[] = [
     kategori: "web",
     demo: "https://keuangan-pondok-daun.vercel.app",
     repo: "https://github.com/Yosuanry0812/Keuangan_Pondok_Daun",
+    image: "/projects/finance-1ff6ea17.webp",
+    previewPage: "Halaman masuk / Login",
   },
   {
     judul: "Site Plan Website",
-    deskripsi:
-      "Interactive web app for visualizing and planning land layouts.",
+    deskripsi: "Interactive web app for visualizing and planning land layouts.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://site-plan-website.vercel.app",
     repo: "https://github.com/Yosuanry0812/site-plan-website",
+    image: "/projects/site-plan-387591d7.webp",
+    previewPage: "Site plan interaktif",
   },
   {
     judul: "Pondok Daun Website",
     deskripsi:
-      "Modern profile site for Pondok Daun, presenting activities, facilities, and contact info in a clean layout.",
+      "Property website for Pondok Daun, with a housing catalog, unit details, and a mortgage information portal.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     kategori: "web",
     demo: "https://pondok-daun-website.vercel.app",
     repo: "https://github.com/Yosuanry0812/pondok-daun-website",
+    image: "/projects/pondok-daun-40d48499.webp",
+    previewPage: "Katalog perumahan / Property catalog",
   },
   {
     judul: "Bangkiang Jaran Web",
@@ -129,15 +145,19 @@ export const projects: Project[] = [
     kategori: "web",
     demo: "",
     repo: "https://github.com/Yosuanry0812/bangkiang-jaran-web",
+    image: "/projects/bangkiang-jaran-ee5998c2.webp",
+    previewPage: "Beranda wisata / Tourism homepage",
   },
   {
     judul: "Batik Mobile",
     deskripsi:
-      "Mobile app that showcases Indonesian batik catalog, motif details, and cultural context.",
-    tech: ["React Native", "JavaScript"],
+      "iCareBatik mobile application for exploring batik motifs, their origins, and image-based motif identification.",
+    tech: ["React Native", "Expo", "TypeScript"],
     kategori: "mobile",
     demo: "",
     repo: "https://github.com/Yosuanry0812/batik-mobile-js",
+    image: "/projects/batik-mobile-5e4c5555.webp",
+    previewPage: "iCareBatik / Mobile",
   },
   {
     judul: "Credit Agreement Progress",
@@ -147,7 +167,28 @@ export const projects: Project[] = [
     kategori: "web",
     demo: "",
     repo: "https://github.com/Yosuanry0812/progress-akad-kredit-web",
+    image: "/projects/credit-progress-5b8e5ccf.webp",
+    previewPage: "Halaman masuk / Login",
   },
+];
+
+export const stats = [
+  {
+    label: "Public Repositories",
+    value: String(githubSnapshot.repositories.length),
+  },
+  { label: "Projects", value: String(projects.length) },
+  {
+    label: "Primary Languages",
+    value: String(
+      new Set(
+        githubSnapshot.repositories
+          .map((repo) => repo.language)
+          .filter(Boolean),
+      ).size,
+    ),
+  },
+  { label: "Contributions", value: String(githubSnapshot.totalContributions) },
 ];
 
 export interface Experience {
@@ -163,36 +204,42 @@ export const experience: Experience[] = [
     periode: "Oct 2023 — Present",
     posisi: "Student (Semester 7)",
     tempat: "INSTIKI",
-    deskripsi: "Pursuing a degree while building technical and organizational skills along the way.",
+    deskripsi:
+      "Pursuing a degree while building technical and organizational skills along the way.",
   },
   {
     periode: "Feb 2026 — May 2026",
     posisi: "Intern",
     tempat: "NDS (New Directions Success) Guestlist",
-    deskripsi: "4-month internship at NDS Guestlist, learning the ropes in a real professional environment.",
+    deskripsi:
+      "4-month internship at NDS Guestlist, learning the ropes in a real professional environment.",
   },
   {
     periode: "May 2026 — Present",
     posisi: "Part-Time Staff",
     tempat: "NDS (New Direction Success) Guestlist",
-    deskripsi: "Stayed on as a part-time team member after the internship wrapped up.",
+    deskripsi:
+      "Stayed on as a part-time team member after the internship wrapped up.",
   },
   {
     periode: "2023 — 2024",
     posisi: "Head of PSDM Division",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Core board member leading human resource development for the organization.",
+    deskripsi:
+      "Core board member leading human resource development for the organization.",
   },
   {
     periode: "2024 — 2025",
     posisi: "Vice Chairman",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Worked alongside the chairman to lead and coordinate every division.",
+    deskripsi:
+      "Worked alongside the chairman to lead and coordinate every division.",
   },
   {
     periode: "2025 — 2026",
     posisi: "Chairman",
     tempat: "FPK-KEMAHKRIS",
-    deskripsi: "Led the organization, setting direction and keeping operations running smoothly.",
+    deskripsi:
+      "Led the organization, setting direction and keeping operations running smoothly.",
   },
 ];

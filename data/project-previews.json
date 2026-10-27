@@ -1,0 +1,68 @@
+[
+  {
+    "repository": "https://github.com/Yosuanry0812/Keuangan_Pondok_Daun",
+    "commit": "1ff6ea174171f358f66d47b4c109b83629981c70",
+    "branch": "main",
+    "page": "/login",
+    "render": "Next.js login page",
+    "image": "/projects/finance-1ff6ea17.webp",
+    "capturedAt": "2026-10-27T17:39:27.797Z",
+    "width": 1440,
+    "height": 960
+  },
+  {
+    "repository": "https://github.com/Yosuanry0812/site-plan-website",
+    "commit": "387591d7bc88ed4dd3d781d2256ccffe32d5802c",
+    "branch": "main",
+    "page": "/",
+    "render": "Next.js interactive site plan, zoomed out using its controls",
+    "image": "/projects/site-plan-387591d7.webp",
+    "capturedAt": "2026-10-27T17:41:06.128Z",
+    "width": 1440,
+    "height": 960
+  },
+  {
+    "repository": "https://github.com/Yosuanry0812/pondok-daun-website",
+    "commit": "40d48499ec0567b421b92bda86e0f1f68d0f064c",
+    "branch": "main",
+    "page": "/",
+    "render": "Next.js property homepage",
+    "image": "/projects/pondok-daun-40d48499.webp",
+    "capturedAt": "2026-10-27T17:39:12.930Z",
+    "width": 1440,
+    "height": 960
+  },
+  {
+    "repository": "https://github.com/Yosuanry0812/bangkiang-jaran-web",
+    "commit": "ee5998c27cae971d8f4c6b1ce1c86988dd6c8385",
+    "branch": "main",
+    "page": "/",
+    "render": "Original Laravel Blade landing view and public assets; empty gallery/ticket collections, no database connection",
+    "image": "/projects/bangkiang-jaran-ee5998c2.webp",
+    "capturedAt": "2026-10-27T17:35:54.851Z",
+    "width": 1440,
+    "height": 960
+  },
+  {
+    "repository": "https://github.com/Yosuanry0812/batik-mobile-js",
+    "commit": "5e4c555518a32ea7d6bbfdff09f9cd43e9276ff6",
+    "branch": "main",
+    "page": "/",
+    "render": "Expo web rendering of the original onboarding screen",
+    "image": "/projects/batik-mobile-5e4c5555.webp",
+    "capturedAt": "2026-10-27T17:36:00.580Z",
+    "width": 393,
+    "height": 852
+  },
+  {
+    "repository": "https://github.com/Yosuanry0812/progress-akad-kredit-web",
+    "commit": "5b8e5ccf21585bd19facf751facd60d128d5fb34",
+    "branch": "master",
+    "page": "/login",
+    "render": "Next.js login page",
+    "image": "/projects/credit-progress-5b8e5ccf.webp",
+    "capturedAt": "2026-10-27T17:39:20.294Z",
+    "width": 1440,
+    "height": 960
+  }
+]

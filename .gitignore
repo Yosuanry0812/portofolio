@@ -2,6 +2,8 @@
 /node_modules
 
 # next.js
+/.reference-projects/
+/.preview-cache/
 /.next/
 /out/
 
