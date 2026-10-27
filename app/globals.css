@@ -1017,6 +1017,9 @@ h2 {
 .slow-spin {
   animation: slow-spin 25s linear infinite;
 }
+html[data-motion="off"] *,
+html[data-motion="off"] *:before,
+html[data-motion="off"] *:after,
 .motion-paused *,
 .motion-paused *:before,
 .motion-paused *:after {
@@ -1557,12 +1560,12 @@ h2 {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:not([data-motion="on"]) {
     scroll-behavior: auto;
   }
-  *,
-  *:before,
-  *:after {
+  html:not([data-motion="on"]) *,
+  html:not([data-motion="on"]) *:before,
+  html:not([data-motion="on"]) *:after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -1822,7 +1825,7 @@ h2 {
 /* Actual project screens in desktop and mobile hardware. */
 .real-project-preview {
   display: block;
-  aspect-ratio: 1.18;
+  aspect-ratio: 1.12;
   background: color-mix(in srgb, var(--panel), var(--page) 30%);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -1850,22 +1853,35 @@ h2 {
   perspective: 1000px;
 }
 .desktop-device {
-  width: min(84%, 500px);
+  width: min(90%, 530px);
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .desktop-display {
-  width: 100%;
-  border: 6px solid #272c2a;
+  position: relative;
+  width: 94%;
+  padding-top: 5px;
+  border: 6px solid #222525;
   border-bottom: 0;
-  border-radius: 10px 10px 7px 7px;
-  background: #272c2a;
+  border-radius: 12px 12px 4px 4px;
+  background: #181b1b;
   overflow: hidden;
   box-shadow:
     0 12px 32px #0002,
-    inset 0 0 0 1px #707770;
+    0 0 0 1px #979c9a;
+}
+.laptop-camera {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #34413d;
+  box-shadow: 0 0 0 1px #111;
+  transform: translateX(-50%);
 }
 .device-browser-bar {
   height: 24px;
@@ -1923,29 +1939,73 @@ h2 {
   object-position: center;
 }
 .desktop-display-chin {
-  height: 13px;
-  background: linear-gradient(#303632, #252a27);
+  height: 14px;
+  background: #181b1b;
   display: grid;
   place-items: center;
 }
 .desktop-display-chin span {
-  width: 3px;
+  color: #999f9d;
+  font-size: 5px;
+  letter-spacing: 0.04em;
+}
+.laptop-hinge {
+  width: 90%;
   height: 3px;
-  border-radius: 50%;
-  background: #687466;
+  background: linear-gradient(90deg, #686d6b, #292d2c 8%, #292d2c 92%, #686d6b);
 }
-.desktop-device-neck {
-  width: 15%;
-  height: 24px;
-  background: linear-gradient(90deg, #70796d, #bdc4b7 47%, #687261);
-  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+.laptop-base {
+  position: relative;
+  width: 100%;
+  height: 42px;
+  background: linear-gradient(180deg, #999e9c, #d3d6d4 82%, #b7bcba);
+  clip-path: polygon(5% 0, 95% 0, 100% 96%, 99% 100%, 1% 100%, 0 96%);
+  border-radius: 0 0 4px 4px;
 }
-.desktop-device-foot {
-  width: 33%;
+.laptop-keyboard {
+  position: absolute;
+  inset: 4px 13% auto;
+  height: 19px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  padding: 2px;
+  background: #555a58;
+  border-radius: 2px;
+  transform: perspective(160px) rotateX(22deg);
+}
+.laptop-keyboard i {
+  border-radius: 1px;
+  background: #242928;
+  box-shadow: 0 0.5px 0 #919693;
+}
+.laptop-trackpad {
+  position: absolute;
+  width: 23%;
+  height: 12px;
+  left: 38.5%;
+  bottom: 3px;
+  border: 0.5px solid #8f9692;
+  border-radius: 2px;
+  background: #c6cbc8;
+}
+.laptop-front-edge {
+  position: relative;
+  width: 100%;
   height: 6px;
-  border-radius: 50% 50% 3px 3px;
-  background: linear-gradient(#bac2b4, #707d68);
-  box-shadow: 0 8px 14px #0002;
+  border-radius: 0 0 38% 38% / 0 0 100% 100%;
+  background: linear-gradient(#e0e3e1, #919793 65%, #656c68);
+  box-shadow: 0 9px 14px #0003;
+}
+.laptop-front-edge span {
+  position: absolute;
+  top: 0;
+  left: 44%;
+  width: 12%;
+  height: 3px;
+  border-radius: 0 0 8px 8px;
+  background: #909793;
 }
 .phone-device {
   position: relative;
@@ -2157,18 +2217,8 @@ h2 {
   color: var(--accent);
   border-color: var(--accent);
 }
-.stack-motion-toggle:disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-.stack-band.is-paused .stack-track,
-.stack-viewport:focus-within .stack-track {
+.stack-band.is-paused .stack-track {
   animation-play-state: paused;
-}
-@media (hover: hover) {
-  .stack-viewport:hover .stack-track {
-    animation-play-state: paused;
-  }
 }
 @keyframes stack-travel {
   to {
@@ -2176,15 +2226,35 @@ h2 {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stack-track {
+  html:not([data-motion="on"]) .stack-track {
     animation: none;
   }
-  .stack-list[aria-hidden="true"] {
+  html:not([data-motion="on"]) .stack-list[aria-hidden="true"] {
     display: none;
   }
 }
 
 /* Phone and tablet ergonomics. */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .desktop-device {
+    width: 84%;
+  }
+  .laptop-base {
+    height: 32px;
+  }
+  .laptop-keyboard {
+    height: 15px;
+    top: 3px;
+    gap: 1px;
+  }
+  .laptop-trackpad {
+    height: 10px;
+    bottom: 2px;
+  }
+  .laptop-front-edge {
+    height: 5px;
+  }
+}
 @media (max-width: 899px) {
   .stack-band-inner {
     grid-template-columns: 150px minmax(0, 1fr) 40px;
@@ -2197,7 +2267,7 @@ h2 {
     font-size: 14px;
   }
   .desktop-device {
-    width: 84%;
+    width: 86%;
   }
   .device-browser-bar {
     height: 20px;
@@ -2207,10 +2277,20 @@ h2 {
   .desktop-display-chin {
     height: 10px;
   }
-  .desktop-device-neck {
-    height: 20px;
+  .laptop-base {
+    height: 28px;
   }
-  .desktop-device-foot {
+  .laptop-keyboard {
+    top: 2px;
+    height: 13px;
+    gap: 1px;
+    padding: 1px;
+  }
+  .laptop-trackpad {
+    height: 9px;
+    bottom: 2px;
+  }
+  .laptop-front-edge {
     height: 5px;
   }
 }
@@ -2410,7 +2490,7 @@ h2 {
     inset: 26px 0 32px;
   }
   .desktop-device {
-    width: 88%;
+    width: 86%;
   }
   .desktop-display {
     border-width: 5px;
@@ -2420,8 +2500,8 @@ h2 {
   .desktop-display-chin {
     height: 9px;
   }
-  .desktop-device-neck {
-    height: 18px;
+  .laptop-base {
+    height: 26px;
   }
   .device-address {
     font-size: 6px;

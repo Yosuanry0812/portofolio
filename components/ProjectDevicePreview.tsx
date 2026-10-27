@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Globe2, Monitor, Smartphone } from "lucide-react";
+import { Globe2, Laptop, Smartphone } from "lucide-react";
 import type { Project } from "@/data/profile";
 import { useI18n } from "@/lib/i18n";
 
@@ -38,7 +38,7 @@ export default function ProjectDevicePreview({
       data-device={mobile ? "mobile" : "desktop"}
     >
       <div className="device-category">
-        {mobile ? <Smartphone size={13} /> : <Monitor size={13} />}
+        {mobile ? <Smartphone size={13} /> : <Laptop size={13} />}
         <span>{mobile ? "MOBILE APP" : "WEB APP"}</span>
       </div>
       <div className="device-stage">
@@ -62,8 +62,9 @@ export default function ProjectDevicePreview({
             </div>
           </div>
         ) : (
-          <div className="desktop-device">
+          <div className="desktop-device laptop-device">
             <div className="desktop-display">
+              <span className="laptop-camera" aria-hidden="true" />
               <div className="device-browser-bar">
                 <div className="browser-traffic-lights" aria-hidden="true">
                   <i />
@@ -78,11 +79,17 @@ export default function ProjectDevicePreview({
               </div>
               <div className="desktop-screen">{screenshot}</div>
               <div className="desktop-display-chin" aria-hidden="true">
-                <span />
+                <span>MacBook Pro</span>
               </div>
             </div>
-            <div className="desktop-device-neck" aria-hidden="true" />
-            <div className="desktop-device-foot" aria-hidden="true" />
+            <div className="laptop-hinge" aria-hidden="true" />
+            <div className="laptop-base" aria-hidden="true">
+              <div className="laptop-keyboard">
+                {Array.from({ length: 36 }, (_, key) => <i key={key} />)}
+              </div>
+              <div className="laptop-trackpad" />
+            </div>
+            <div className="laptop-front-edge" aria-hidden="true"><span /></div>
           </div>
         )}
       </div>

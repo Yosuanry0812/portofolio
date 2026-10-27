@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import GitHubActivity from "./GitHubActivity";
 import { useGitHub } from "@/lib/github-client";
-import { useMotionPreference } from "@/lib/use-motion-preference";
+import { setMotionEnabled, useMotionPreference } from "@/lib/use-motion-preference";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import {
   ArrowDown,
@@ -194,7 +194,6 @@ export default function CreativePortfolio() {
   const [menu, setMenu] = useState(false);
   const [filter, setFilter] = useState("all");
   const [word, setWord] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
   const [messageReady, setMessageReady] = useState(false);
@@ -222,7 +221,7 @@ export default function CreativePortfolio() {
     { href: "#experience", text: t("nav.experience") },
     { href: "#contact", text: t("nav.contact") },
   ];
-  const motionOff = !!reduced || paused;
+  const motionOff = reduced;
 
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -319,7 +318,7 @@ export default function CreativePortfolio() {
   };
 
   return (
-    <MotionConfig reducedMotion={motionOff ? "always" : "user"}>
+    <MotionConfig reducedMotion={motionOff ? "always" : "never"}>
       <div
         ref={root}
         className={`creative-site${motionOff ? " motion-paused" : ""}`}
@@ -491,19 +490,19 @@ export default function CreativePortfolio() {
                 <SculpturalScene paused={motionOff} />
                 <button
                   className="motion-control"
-                  aria-pressed={paused}
+                  aria-pressed={motionOff}
                   aria-label={
                     id
-                      ? paused
+                      ? motionOff
                         ? "Aktifkan animasi"
                         : "Jeda animasi"
-                      : paused
+                      : motionOff
                         ? "Resume animations"
                         : "Pause animations"
                   }
-                  onClick={() => setPaused((value) => !value)}
+                  onClick={() => setMotionEnabled(motionOff)}
                 >
-                  {paused ? <Play size={13} /> : <Pause size={13} />}
+                  {motionOff ? <Play size={13} /> : <Pause size={13} />}
                   {id ? "Gerakan" : "Motion"} / {motionOff ? "OFF" : "ON"}
                 </button>
               </div>

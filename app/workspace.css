@@ -307,7 +307,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .developer-scene * {
+  html:not([data-motion="on"]) .developer-scene * {
     animation: none !important;
   }
 }
@@ -471,7 +471,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .developer-scene * {
+  html:not([data-motion="on"]) .developer-scene * {
     animation: none !important;
   }
 }

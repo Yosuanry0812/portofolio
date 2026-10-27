@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { getSkillIcon } from "@/data/skills-icons";
 import { useI18n } from "@/lib/i18n";
-import { useMotionPreference } from "@/lib/use-motion-preference";
+import { setMotionEnabled, useMotionPreference } from "@/lib/use-motion-preference";
 
 const technologies = [
   { icon: "Next.js", label: "Next.js" },
@@ -44,9 +44,6 @@ export default function StackMarquee({
               ? "Geser untuk melihat semua teknologi"
               : "Scroll to see all technologies"
           }
-          onPointerDown={(event) => {
-            if (event.pointerType === "touch") setPaused(true);
-          }}
         >
           <div className="stack-track">
             {[0, 1].map((copy) => (
@@ -69,8 +66,14 @@ export default function StackMarquee({
           type="button"
           className="stack-motion-toggle"
           aria-pressed={stopped}
-          disabled={reduced || globalPaused}
-          onClick={() => setPaused((value) => !value)}
+          onClick={() => {
+            if (reduced || globalPaused) {
+              setMotionEnabled(true);
+              setPaused(false);
+            } else {
+              setPaused((value) => !value);
+            }
+          }}
           aria-label={
             id
               ? stopped
